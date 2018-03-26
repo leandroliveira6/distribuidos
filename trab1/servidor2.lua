@@ -2,12 +2,11 @@
 local socket = require('socket')
 local host = socket.bind('*',1234)
 
+local tempos = {}
 -- Aguarda conexões de clientes
 print("Aguardando um cliente...")
 local cliente = host:accept()
 --print('Um cliente se conectou, recebendo mensagens...')
-
-local tempos = {}
 for i=1, 20 do
     tempos[i] = socket.gettime()
     
