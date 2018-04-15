@@ -97,6 +97,14 @@ local desempacotar = function(pacote)
     return desempacote
 end
 
+--[[ Metodo responsavel unicamente por concatenar os resultados convertidos separados por \n
+     desempacote: Tabela contendo todos os resultados
+     return: String dos valores separados por \n
+]]
+local obtem_saida = function(desempacote)
+    return table.concat(desempacote, '\n')
+end
+
 --[[ Método responsavel por converter valores em seus respectivos tipos
     - valores: Valores a serem convertidos
     - tipos: Tipos para os valores serem convertidos
@@ -194,7 +202,7 @@ local createProxy = function(ip, porta, interface)
                         resultados = converter(desempacote, tipos_resultados)
                     end
                     servidor:close()
-                    return unpack(resultados)
+                    return obtem_saida(resultados)
                 else
                     return '__ERRORPC: Servidor offline!'
                 end
