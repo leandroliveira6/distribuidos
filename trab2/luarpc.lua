@@ -1,6 +1,9 @@
 local socket = require('socket')
 local servants = {}
 
+local tempo_servants = 1
+local tempo_de_espera = 5
+
 --[[ Métodos privados ]]
 local traduz_tipo = function(tipo)
     traducao = 'nil'
@@ -97,7 +100,7 @@ local createServant = function(objeto, interface)
 	servant = {
 		objeto = objeto,
 		interface = interface,
-		servidor = socket.bind('*', 1234)
+		servidor = socket.bind('*', 0)
 	}
 	table.insert(servants, servant)
 	return servant.servidor:getsockname()
@@ -106,10 +109,10 @@ end
 local waitIncoming = function()
 	while true do
 		for i=1, #servants do
-			servants[i].servidor:settimeout(1)
+			servants[i].servidor:settimeout(tempo_servants)
 			local cliente = servants[i].servidor:accept()
 			if cliente then
-				cliente:settimeout(1)
+				cliente:settimeout(tempo_de_espera)
 				local request = cliente:receive()
 				if request then
 					local resultados = executar(request, servants[i])
@@ -133,14 +136,20 @@ local createProxy = function(ip, porta, interface)
             local valido, erro = validador(parametros, tipos_parametros)
             if valido then
                 local servidor = socket.connect(ip,porta)
-                local request = empacotar(k, parametros)
-                servidor:send(request)
-                servidor:settimeout(5)
-                local response = servidor:receive()
-                if response then
-                    resultados = desempacotar(response)
+                if servidor then
+                    local request = empacotar(k, parametros)
+                    servidor:send(request)
+                    servidor:settimeout(tempo_de_espera)
+                    local resultados = servidor:receive()
+                    if resultados then
+                        resultados = desempacotar(resultados)
+                    end
+                    servidor:close()
+                    resultados = converter(resultados, tipos_resultados)
+                    return unpack(resultados)
+                else
+                    return '__ERRORPC: Servidor offline!'
                 end
-                servidor:close()
             else
                 return erro
             end
@@ -148,14 +157,6 @@ local createProxy = function(ip, porta, interface)
     end
     return proxy
 end
-
-
-
-
-
-
-
-
 
 --[[ Testes ]]
 local testes = function()
@@ -241,13 +242,6 @@ local testes = function()
     local proxy = createProxy(ip, porta, interface)
     imprime_tabela(proxy)
 end
-testes()
-
-
-
-
-
-
-
+--testes()
 
 return {createServant = createServant, waitIncoming = waitIncoming, createProxy = createProxy}
