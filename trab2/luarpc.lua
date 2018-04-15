@@ -1,10 +1,20 @@
 local socket = require('socket')
 local servants = {}
 
+
+
+--[[ Atributos de controle da aplicação ]]
 local tempo_servants = 1
 local tempo_de_espera = 5
+local protocolo = '\\:-)\\'
 
---[[ Métodos privados ]]
+
+
+-- Métodos privados
+--[[ Método responsavel por traduzir os tipos de interface para os tipos de lua
+    - tipo: O tipo da interface
+    - return: O respectivo tipo em lua
+]]
 local traduz_tipo = function(tipo)
     traducao = 'nil'
     if tipo == 'double' then
@@ -15,6 +25,10 @@ local traduz_tipo = function(tipo)
 	return traducao
 end
 
+--[[ Método responsavel por organizar os tipos de um metodo em tipos de resultados e tipos de parametros
+    - metodo: Metodo da interface, contendo apenas seus dados
+    - return: Uma tabela de tipos de parametros e outra de tipos de resultados
+]]
 local obtem_tipos = function(metodo)
     resultados = {}
     parametros = {}
@@ -38,6 +52,11 @@ local obtem_tipos = function(metodo)
     return parametros, resultados
 end
 
+--[[ Método responsavel por verificar se os tipos passados equivalem aos tipos da interface
+    - valores: Tabela contendo todos os valores passados
+    - tipos: Tabela contendo todos os tipos
+    - return: true caso todos os valores estiverem certos ou uma string de erro caso contrario
+]]
 local validador = function(valores, tipos)
     if #valores == #tipos then
         for i=1,#valores do
@@ -51,17 +70,26 @@ local validador = function(valores, tipos)
     return true
 end
 
+--[[ Método responsavel por transformar dados em string
+    - metodo: Nome do metodo ou qualquer outra string que se deseja passar como primeira parte da mensagem
+    - parametros: Tabela contendo todos os dados de parametros ou resultados
+    - return: Uma string pronta para ser enviada para algum lugar
+]]
 local empacotar = function(metodo, parametros)
-    pacote = metodo .. '\\:-)\\'
+    pacote = metodo .. protocolo
     for i=1,#parametros do
-        pacote = pacote .. parametros[i] .. '\\:-)\\'
+        pacote = pacote .. parametros[i] .. protocolo
     end
     return pacote..'\n'
 end
 
+--[[ Método responsavel por transformar string em dados string, tendo que ser convertido caso se queira executar ações
+    - pacote: String contendo todos os dados
+    - return: Uma tabela de strings
+]]
 local desempacotar = function(pacote)
     local desempacote = {}
-    for str in string.gmatch(pacote, '([^\\:-)\\]+)') do
+    for str in string.gmatch(pacote, '([^'..protocolo..']+)') do
         if str ~= ':-)' and str ~= '\n' then
             table.insert(desempacote, str)
         end
@@ -69,23 +97,36 @@ local desempacotar = function(pacote)
     return desempacote
 end
 
+--[[ Método responsavel por converter valores em seus respectivos tipos
+    - valores: Valores a serem convertidos
+    - tipos: Tipos para os valores serem convertidos
+    - return: Uma tabela contendo os valores convertidos ou nil caso haja algum problema
+]]
 local converter = function(valores, tipos)
-    if #valores == #tipos or (tipos[1] == 'nil' and #valores+1 == #tipos) then
+    if tipos[1] == 'nil' and #valores+1 == #tipos then
+        table.insert(valores, 1, 'nil')
+    end
+    if #valores == #tipos then
         local new_valores = {}
         for i=1,#tipos do
             if tipos[i] == 'number' then
-                new_valores[i] = tonumber(valores[i])
+                table.insert(new_valores, tonumber(valores[i]))
             elseif tipos[i] == 'nil' then
-                new_valores[i] = 'nil'
+                table.insert(new_valores, 'nil')
             else
-                new_valores[i] = valores[i]
+                table.insert(new_valores, valores[i])
             end
         end
         return new_valores
     end
     return nil
-end
+end 
 
+--[[ Método responsavel por executar um metodo no servidor
+    - raw_request: String contendo os dados decessarios para se executar um metodo
+    - servant: Servant contendo todos os atributos necessarios para se executar um metodo
+    - return: Uma tabela com os resultados convertidos ou nil caso haja algum problema
+]]
 local executar = function(raw_request, servant)
 	local request = desempacotar(raw_request)
 	local metodos = servant.interface.methods
@@ -98,6 +139,8 @@ local executar = function(raw_request, servant)
 	end
 	return nil
 end
+
+
 
 -- Funções publicas
 local createServant = function(objeto, interface)
@@ -129,7 +172,6 @@ local waitIncoming = function()
 	end
 end
 
-
 local createProxy = function(ip, porta, interface)
     local ip = ip
     local porta = porta
@@ -152,7 +194,7 @@ local createProxy = function(ip, porta, interface)
                         resultados = converter(desempacote, tipos_resultados)
                     end
                     servidor:close()
-                    return table.unpack(resultados)
+                    return unpack(resultados)
                 else
                     return '__ERRORPC: Servidor offline!'
                 end
@@ -163,6 +205,8 @@ local createProxy = function(ip, porta, interface)
     end
     return proxy
 end
+
+
 
 --[[ Testes ]]
 local testes = function()
@@ -249,5 +293,7 @@ local testes = function()
     imprime_tabela(proxy)
 end
 --testes()
+
+
 
 return {createServant = createServant, waitIncoming = waitIncoming, createProxy = createProxy}
