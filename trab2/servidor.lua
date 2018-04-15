@@ -3,7 +3,7 @@ local interface = require('interface')
 
 myobj1 = {
 	foo = function (a, b, s) return a+b, "alo alo" end,
-	boo = function (n) print('n', n) return n end
+	boo = function (n) return n end
 }
 
 myobj2 = { 

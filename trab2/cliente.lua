@@ -1,4 +1,4 @@
 local luarpc = require('luarpc')
 local interface = require('interface')
-local proxy = luarpc.createProxy('*', 41003, interface)
-print(proxy.foo(2,3))
+local proxy = luarpc.createProxy('*', 38471, interface)
+print(proxy.foo(2,8))

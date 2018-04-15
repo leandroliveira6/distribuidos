@@ -70,15 +70,18 @@ local desempacotar = function(pacote)
 end
 
 local converter = function(valores, tipos)
-    if #valores == #tipos then
-        for i=1,#valores do
+    if #valores == #tipos or (tipos[1] == 'nil' and #valores+1 == #tipos) then
+        local new_valores = {}
+        for i=1,#tipos do
             if tipos[i] == 'number' then
-                valores[i] = tonumber(valores[i])
+                new_valores[i] = tonumber(valores[i])
             elseif tipos[i] == 'nil' then
-                valores[i] = nil
+                new_valores[i] = 'nil'
+            else
+                new_valores[i] = valores[i]
             end
         end
-        return valores
+        return new_valores
     end
     return nil
 end
@@ -90,7 +93,8 @@ local executar = function(raw_request, servant)
 		local metodo = table.remove(request, 1)
 		local tipos_parametros, tipos_resultados = obtem_tipos(metodos[metodo])
 		local parametros = converter(request, tipos_parametros)
-		return table.pack(servant.objeto[metodo](unpack(parametros)))
+		local resultados = table.pack(servant.objeto[metodo](unpack(parametros)))
+		return converter(resultados, tipos_resultados)
 	end
 	return nil
 end
@@ -116,7 +120,7 @@ local waitIncoming = function()
 				local request = cliente:receive()
 				if request then
 					local resultados = executar(request, servants[i])
-					local resultado, outros = resultados[1], table.pack(table.unpack(resultados,2))
+					local resultado, outros = resultados[1], table.pack(unpack(resultados,2))
 					cliente:send(empacotar(resultado, outros)..'\n')
 				end
 				cliente:close()
@@ -124,6 +128,7 @@ local waitIncoming = function()
 		end
 	end
 end
+
 
 local createProxy = function(ip, porta, interface)
     local ip = ip
@@ -138,15 +143,16 @@ local createProxy = function(ip, porta, interface)
                 local servidor = socket.connect(ip,porta)
                 if servidor then
                     local request = empacotar(k, parametros)
+                    local resultados = ''
                     servidor:send(request)
                     servidor:settimeout(tempo_de_espera)
                     local resultados = servidor:receive()
                     if resultados then
-                        resultados = desempacotar(resultados)
+                        local desempacote = desempacotar(resultados)
+                        resultados = converter(desempacote, tipos_resultados)
                     end
                     servidor:close()
-                    resultados = converter(resultados, tipos_resultados)
-                    return unpack(resultados)
+                    return table.unpack(resultados)
                 else
                     return '__ERRORPC: Servidor offline!'
                 end
