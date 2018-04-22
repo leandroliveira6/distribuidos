@@ -1,12 +1,13 @@
 local socket = require('socket')
 local servants = {}
+local binds = {}
 
 
 
 --[[ Atributos de controle da aplicação ]]
 local tempo_servants = 1
 local tempo_de_espera = 5
-local protocolo = '\\:-)\\'
+local quebra_linha = '\\:-)\\'
 
 
 
@@ -61,37 +62,40 @@ local validador = function(valores, tipos)
     if #valores == #tipos then
         for i=1,#valores do
             if type(valores[i]) ~= tipos[i] then
-                return nil, '__ERRORPC: Tipos dos valores incompativeis!'
+                return nil, '__ERRORPC: Tipos dos valores incompativeis!\n'
             end
         end
     else
-        return nil, '__ERRORPC: Numero de valores incompativeis!'
+        return nil, '__ERRORPC: Numero de valores incompativeis!\n'
     end
     return true
 end
 
---[[ Método responsavel por transformar dados em string
+--[[ Método responsavel por transformar dados em uma lista de strings
     - metodo: Nome do metodo ou qualquer outra string que se deseja passar como primeira parte da mensagem
     - parametros: Tabela contendo todos os dados de parametros ou resultados
-    - return: Uma string pronta para ser enviada para algum lugar
+    - return: Uma lista de strings pronta para ser enviada para algum lugar
 ]]
 local empacotar = function(metodo, parametros)
-    pacote = metodo .. protocolo
+    pacote = {' \n'}
+    table.insert(pacote, metodo .. '\n')
     for i=1,#parametros do
-        pacote = pacote .. parametros[i] .. protocolo
+        table.insert(pacote, parametros[i] .. '\n')
     end
-    return pacote..'\n'
+    return pacote
 end
 
---[[ Método responsavel por transformar string em dados string, tendo que ser convertido caso se queira executar ações
-    - pacote: String contendo todos os dados
-    - return: Uma tabela de strings
+--[[ Método responsavel por transformar uma lista de strings em dados
+    - conexao: Conexao para recebimento dos parametros ou resultados
+    - itens: Lista contendo os tipos de entrada ou saida, usado para determinar a quantidade de iterações com o 'outro lado'
+    - return: Uma lista com os parametros ou resultados
 ]]
-local desempacotar = function(pacote)
+local desempacotar = function(conexao, itens)
     local desempacote = {}
-    for str in string.gmatch(pacote, '([^'..protocolo..']+)') do
-        if str ~= ':-)' and str ~= '\n' then
-            table.insert(desempacote, str)
+    if conexao and itens then
+        for i=1,#itens do
+            local item = conexao:receive()
+            table.insert(desempacote, item)
         end
     end
     return desempacote
@@ -108,7 +112,7 @@ end
 --[[ Método responsavel por converter valores em seus respectivos tipos
     - valores: Valores a serem convertidos
     - tipos: Tipos para os valores serem convertidos
-    - return: Uma tabela contendo os valores convertidos ou nil caso haja algum problema
+    - return: Uma tabela contendo os valores convertidos ou uma mensagem de erro
 ]]
 local converter = function(valores, tipos)
     if tipos[1] == 'nil' and #valores+1 == #tipos then
@@ -127,56 +131,68 @@ local converter = function(valores, tipos)
         end
         return new_valores
     end
-    return nil
+    return '__ERRORPC: Problemas na conversão, tipos incompativeis!\n'
 end 
 
 --[[ Método responsavel por executar um metodo no servidor
-    - raw_request: String contendo os dados decessarios para se executar um metodo
-    - servant: Servant contendo todos os atributos necessarios para se executar um metodo
-    - return: Uma tabela com os resultados convertidos ou nil caso haja algum problema
+    - metodo: Método que se deseja executar uma ação
+    - request: Lista de strings contendo os dados decessarios para se executar o metodo
+    - servant: Servant contendo todos os atributos necessarios para se executar o metodo
+    - return: Uma tabela com os resultados convertidos ou uma mensagem de erro
 ]]
-local executar = function(raw_request, servant)
-	local request = desempacotar(raw_request)
-	local metodos = servant.interface.methods
-	if request and metodos[request[1]] then
-		local metodo = table.remove(request, 1)
-		local tipos_parametros, tipos_resultados = obtem_tipos(metodos[metodo])
-		local parametros = converter(request, tipos_parametros)
+local executar = function(metodo, request, servant)
+	local tipos = servant.tipos[metodo]
+	if request and tipos then
+		local parametros = converter(request, tipos['in'])
 		local resultados = table.pack(servant.objeto[metodo](unpack(parametros)))
-		return converter(resultados, tipos_resultados)
+		return converter(resultados, tipos['out'])
 	end
-	return nil
+	return '__ERRORPC: Metodo inexistente!\n'
 end
-
-
 
 -- Funções publicas
 local createServant = function(objeto, interface)
-	servant = {
+    local servidor = socket.bind('*', 0)
+    local tipos = {}
+    for k, v in pairs(interface.methods) do
+        local tipos_parametros, tipos_resultados = obtem_tipos(v)
+        tipos[k] = {}
+        tipos[k]['in'] = tipos_parametros
+        tipos[k]['out'] = tipos_resultados
+    end
+	servants[servidor] = {
 		objeto = objeto,
 		interface = interface,
-		servidor = socket.bind('*', 0)
+		tipos = tipos
 	}
-	table.insert(servants, servant)
-	return servant.servidor:getsockname()
+	table.insert(binds, servidor)
+	return servidor:getsockname()
 end
 
 local waitIncoming = function()
 	while true do
-		for i=1, #servants do
-			servants[i].servidor:settimeout(tempo_servants)
-			local cliente = servants[i].servidor:accept()
-			if cliente then
-				cliente:settimeout(tempo_de_espera)
-				local request = cliente:receive()
-				if request then
-					local resultados = executar(request, servants[i])
-					local resultado, outros = resultados[1], table.pack(unpack(resultados,2))
-					cliente:send(empacotar(resultado, outros)..'\n')
-				end
-				cliente:close()
-			end					
-		end
+		local conexoes = socket.select(binds, nil, tempo_servants)
+		for _, conexao in ipairs(conexoes) do
+		    if servants[conexao] then
+			    local cliente = conexao:accept()
+			    local request = cliente:receive()
+			    if request then
+			        local metodo = cliente:receive()
+			        local desempacote = desempacotar(cliente, servants[conexao].tipos[metodo]['in'])
+				    local resultados = executar(metodo, desempacote, servants[conexao])
+				    if type(resultados) ~= 'string' then
+				        local resultado, outros = resultados[1], table.pack(unpack(resultados,2))
+				        local pacote = empacotar(resultado, outros)
+				        for i=1,#pacote do
+				            cliente:send(pacote[i])
+				        end
+				    else
+				        cliente:send(resultados)
+				    end
+			    end
+			    cliente:close()
+	        end
+		end					
 	end
 end
 
@@ -192,17 +208,21 @@ local createProxy = function(ip, porta, interface)
             if valido then
                 local servidor = socket.connect(ip,porta)
                 if servidor then
-                    local request = empacotar(k, parametros)
+                    local pacote = empacotar(k, parametros)
                     local resultados = ''
-                    servidor:send(request)
+                    local response = ''
+                    for i=1,#pacote do
+					    servidor:send(pacote[i])
+					end
                     servidor:settimeout(tempo_de_espera)
-                    local resultados = servidor:receive()
-                    if resultados then
-                        local desempacote = desempacotar(resultados)
-                        resultados = converter(desempacote, tipos_resultados)
-                    end
+                    response = servidor:receive()
+				    if response then
+				        local desempacote = desempacotar(servidor, tipos_resultados)
+				        resultados = converter(desempacote, tipos_resultados)
+				        resultados = obtem_saida(resultados)
+				    end
                     servidor:close()
-                    return obtem_saida(resultados)
+                    return resultados
                 else
                     return '__ERRORPC: Servidor offline!'
                 end
@@ -213,95 +233,5 @@ local createProxy = function(ip, porta, interface)
     end
     return proxy
 end
-
-
-
---[[ Testes ]]
-local testes = function()
-    local imprime_tabela = function(tabela)
-	    for k, v in pairs(tabela) do
-		    print(k, v, type(v))
-	    end
-	    print()
-    end
-    local interface = {
-        methods = {
-            foo = {
-                resulttype = "double",
-                args = {
-                    {direction = "in", type = "double"},
-                    {direction = "in", type = "double"},
-                    {direction = "out", type = "string"}
-                }
-            },
-            boo = {
-                resulttype = "void",
-                args = {
-                    {direction = "inout", type = "double"}
-                }
-            }
-        }
-    }
-    local obj = {
-	    foo = function (a, b, s) return a+b, "alo alo" end,
-	    boo = function (n) print('n', n) return n end
-    }
-    local parametros, resultados
-    
-    print('metodos privados')
-    print('testes do metodo obtem_tipos')
-    for k, v in pairs(interface.methods) do
-        print(k)
-        parametros, resultados = obtem_tipos(v)
-        print('parametros')
-        imprime_tabela(parametros)
-        print('resultados')
-        imprime_tabela(resultados)
-    end
-    
-    print('testes do metodo validador')
-    print('foo')
-    parametros, resultados = obtem_tipos(interface.methods.foo)
-    print('parametros', validador({2,4}, parametros), '(true esperado)')
-    print('parametros', validador({5.4,2}, parametros), '(true esperado)')
-    print('parametros', validador({2,4,3}, parametros), '(nil esperado)')
-    print('parametros', validador({8.8}, parametros), '(nil esperado)')
-    print('parametros', validador({6, 'asd'}, parametros), '(nil esperado)')
-    print()
-    
-    print('boo')
-    parametros, resultados = obtem_tipos(interface.methods.boo)
-    print('parametros', validador({2}, parametros), '(true esperado)')
-    print('parametros', validador({5.4}, parametros), '(true esperado)')
-    print('parametros', validador({2,4}, parametros), '(nil esperado)')
-    print('parametros', validador({'asd'}, parametros), '(nil esperado)')
-    print()
-    
-    print('testes do metodo empacotar')
-    local pacote = empacotar('foo', {12,54})
-    print(pacote)
-    print()
-    
-    print('testes do metodo desempacotar')
-    local desempacote = desempacotar(pacote)
-    imprime_tabela(desempacote)
-    
-    print('testes do metodo converter')
-    imprime_tabela(converter(desempacote, {'string', 'number', 'number'}))
-    
-    print('metodos publicos')
-    local ip, porta = createServant(obj, interface)
-    
-    print('testes do metodo executar')
-    resultados = executar(pacote, servants[1])
-    imprime_tabela(resultados)
-    
-    print('testes do metodo createProxy')
-    local proxy = createProxy(ip, porta, interface)
-    imprime_tabela(proxy)
-end
---testes()
-
-
 
 return {createServant = createServant, waitIncoming = waitIncoming, createProxy = createProxy}
