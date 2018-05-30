@@ -1,0 +1,88 @@
+#include "/home/terra/TerraNG/terra/TerraNet.defs"
+#define MAX_TEMP 600
+
+pktype usrMsg from radioMsg with
+	var ushort versao;
+	var ushort saltos;
+	var ushort progenitor;
+end
+
+var usrMsg sndData;
+var usrMsg recData;
+var usrMsg tmpData;
+var ushort nodeId = getNodeId();
+var ushort temperatura;
+
+sndData.target = BROADCAST;
+sndData.source = nodeId;
+sndData.progenitor = 0;
+sndData.versao = 0;
+sndData.saltos = 0;
+
+par do
+	/*
+	** Loop responsavel por verificar a temperatura a cada 10s
+	** Acende o LED amarelo como alerta quando a temperatura ultrapassa MAX_TEMP
+	*/
+	loop do
+		par/and do
+			emit REQ_TEMP();
+			temperatura = await TEMP;
+			if temperatura > MAX_TEMP then
+				emit LED1(ON);	
+			else
+				emit LED1(OFF);
+			end
+		with
+			await 10s;
+		end
+	end
+with
+	/*
+	** Loop responsavel por enviar uma inundação a cada 10s
+	** Acende o LED vermelho como feedback quando estiver enviando mensagens
+	** Exclusivo do nó 11 (raiz)
+	*/
+	if nodeId == 11 then
+		loop do
+			par/and do
+				emit LED0(ON);
+				inc sndData.versao; // Em toda inundação é incrementada a versão, para que os nós reconheçam a mensagem como uma atualização
+				sndData.type = 0; // ROTEAMENTO
+				emit SEND(sndData);
+				await SEND_DONE;
+				emit LED0(OFF);
+			with
+				await 10s;
+			end
+		end
+	end
+with
+	/*
+	** Loop responsavel por receber mensagens
+	** Acende o LED verde como feedback quando estiver recebendo mensagens
+	*/
+	par do
+		loop do
+			tmpData = await RECEIVE;
+			if tmpData.versao > sndData.versao then
+				qPut(tmpData);
+			end
+		end
+	with
+		loop do
+			await Q_READY();
+			emit LED2(ON);
+			qGet(recData);
+			if recData.type == 0 then
+				sndData.progenitor = recData.source;
+				sndData.versao = recData.versao;
+				inc sndData.saltos;
+				await 1s;
+				emit SEND(sndData);
+				await SEND_DONE;
+			end
+			emit LED2(OFF);
+		end
+	end
+end
