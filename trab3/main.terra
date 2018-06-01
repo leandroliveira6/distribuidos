@@ -204,7 +204,7 @@ with
 			
 				/*
 				** Reponsavel por tratar mensagens de pedidos de temperatura (type=1);
-				** Caso o nó seja o destinatario, envia-se uma mensagem para o progenitor contendo a temperaturaLocal e o novo destinatario (raiz);
+				** Caso o nó seja o destinatario, calcula-se a media das temperaturas e envia uma mensagem de resposta a raiz, passando por todos os progenitores;
 				** Caso contrario, passará a mensagem adiante.
 				*/
 				if msgDesenfileirada.type == 1 then
