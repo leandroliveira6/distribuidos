@@ -1,4 +1,8 @@
 #include "/home/terra/TerraNG/terra/TerraNet.defs"
+
+/*
+** Definições para melhorar a leitura do codigo
+*/
 #define MAX_TEMP 600
 #define INUNDACAO 0
 #define PEDIDO 1
@@ -7,6 +11,9 @@
 #define DESTINATARIO 41
 #define DESTINATARIO_ALTERNATIVO 23
 
+/*
+** Tipo mensagem com os campos especificos da aplicação
+*/
 pktype mensagem from radioMsg with
 	var ushort destinatario;
 	var ushort temperatura;
@@ -14,11 +21,20 @@ pktype mensagem from radioMsg with
 	var ushort saltos;
 end
 
+/*
+** Variaveis do tipo mensagem, onde duas delas só são usadas pelo nó raiz, que é a msgInundacao e msgPedido;
+** A variavel msgParaEnfileirar é responsavel só por receber a mensagem e enfileirar;
+** As outras são usadas de forma geral.
+*/
 var mensagem msgInundacao;
 var mensagem msgPedido;
 var mensagem msgParaEnfileirar;
 var mensagem msgDesenfileirada;
 var mensagem msgResposta;
+
+/*
+** Variaveis globais da aplicação
+*/
 var ushort idLocal = getNodeId();
 var ushort versaoLocal = 0;
 var ushort versaoPedidoLocal = 0;
@@ -35,7 +51,7 @@ temperaturas[1] = 0;
 temperaturas[2] = 0;
 temperaturas[3] = 0;
 
-if idLocal == 11 then
+if idLocal == 11 then // Usadas apenas pelo nó raiz
 	msgInundacao.target = BROADCAST;
 	msgInundacao.source = idLocal;
 	msgInundacao.type = INUNDACAO;
@@ -46,7 +62,7 @@ if idLocal == 11 then
 	msgPedido.source = idLocal;
 	msgPedido.type = PEDIDO;
 	msgPedido.destinatario = DESTINATARIO;
-else
+else // Usada de forma geral
 	msgResposta.target = 0; // Progenitor corrente
 	msgResposta.source = idLocal;
 	msgResposta.type = RESPOSTA;
@@ -56,8 +72,9 @@ end
 
 par do
 	/*
-	** Bloco responsavel por verificar a temperatura a cada 10s
-	** Acende o LED amarelo como alerta quando a temperatura ultrapassa MAX_TEMP
+	** Bloco responsavel por verificar a temperatura a cada 10s;
+	** Acende o LED amarelo como alerta quando a temperatura ultrapassa MAX_TEMP;
+	** Guarda a temperatura num vetor de temperaturas, eliminando sempre a mais antiga.
 	*/
 	loop do
 		par/and do
@@ -79,12 +96,15 @@ par do
 	end
 with
 	/*
-	** Bloco responsavel por enviar uma inundação a cada 12s
-	** Acende o LED vermelho como feedback quando estiver enviando mensagens
-	** Exclusivo do nó 11 (raiz)
+	** Bloco responsavel por iniciar inundações;
+	** Exclusivo do nó 11 (raiz).
 	*/
 	if idLocal == 11 then
 		par do
+			/*
+			** Bloco responsavel por enviar uma inundação a cada 60s, acendendo LEDs especificos para fins de alerta que o evento está acontecendo;
+			** Incrementa-se a versão contida na variavel msgInundacao antes de cada envio.
+			*/
 			loop do
 				par/and do
 					emit LED0(ON);
@@ -101,6 +121,12 @@ with
 				end
 			end
 		with
+			/*
+			** Bloco responsavel por enviar pedidos, acendendo LEDs especificos para fins de alerta que o evento está acontecendo;
+			** Incrementa-se a versão contida na variavel msgInundacao antes de cada envio;
+			** Se a voltagem for maior que 1000, envia-se um pedido de temperatura para o nó DESTINATARIO (42);
+			** Caso a voltagem seja menor que 1000, envia-se para o DESTINATARIO_ALTERNATIVO (23).
+			*/
 			loop do
 				par/and do
 					emit REQ_VOLTS();
@@ -138,7 +164,7 @@ with
 	end
 with
 	/*
-	** Bloco responsavel por desenfileirar e tratar mensagens
+	** Bloco responsavel por desenfileirar e tratar mensagens.
 	*/
 	loop do
 		await Q_READY();
@@ -150,7 +176,8 @@ with
 			
 			/*
 			** Reponsavel por tratar mensagens de inundação (type=0);
-			** Caso a versão seja maior que a local, atualiza-se as informações locais e as da mensagem antes de passa-la adiante.
+			** Caso a versão seja maior que a local, atualiza-se as informações locais e as da mensagem antes de passa-la adiante;
+			** Tambem envia uma mensagem para o progenitor informando que é o sucessor direto dele.
 			*/
 			if msgDesenfileirada.type == 0 then
 				if msgDesenfileirada.versao > versaoLocal then
@@ -213,7 +240,9 @@ with
 					end
 					
 				/*
-				** Reponsavel por tratar mensagens de resposta de temperatura (type=2).
+				** Reponsavel por tratar mensagens de resposta de temperatura (type=2);
+				** Caso a resposta tenha atingido seu destino, ou seja, chegou ao nó raiz, acende-se todos os LEDs para fins de alerta;
+				** Caso contrario, envia-se a mensagem para seu progenitor.
 				*/
 				else
 					if msgDesenfileirada.type == 2 then
@@ -236,6 +265,10 @@ with
 							emit LED2(OFF);
 						end
 					else
+						/*
+						** Reponsavel por guardar os sucessores diretos do nó (type=3);
+						** Cada mensagem recebida, informando sobre sucessores, é enfileirada no vetor vizinhosDiretos, de forma a eliminar sempre o mais antigo.
+						*/
 						if msgDesenfileirada.type == 3 then
 							vizinhosDiretos[vizinhoDireto_idx] = msgDesenfileirada.source;
 							inc vizinhoDireto_idx;
