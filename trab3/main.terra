@@ -8,6 +8,8 @@
 #define TIPO_PEDIDO 1
 #define TIPO_RESPOSTA 2
 #define TIPO_ROTEAMENTO 3
+#define DIR_SAIDA 0
+#define DIR_ENTRADA 1
 #define NO_RAIZ 11
 #define NO_DESTINATARIO 41
 #define NO_DESTINATARIO_ALTERNATIVO 23
@@ -21,6 +23,7 @@ pktype mensagem from radioMsg with
 	var ushort versao;
 	var ushort saltos;
 	var ushort origem;
+	var ubyte direcao;
 end
 
 /*
@@ -41,9 +44,6 @@ end
 loop i,15 do
 	tabela_roteamento[i] = 0;
 end
-
-var ushort[4] vizinhosDiretos;
-var ubyte vizinhoDireto_idx = 0;
 
 par do
 	/*
@@ -75,42 +75,40 @@ with
 	** Exclusivo do nó 11 (raiz).
 	*/
 	if idLocal == 11 then
-		var mensagem msgInundacao;
-		msgInundacao.target = BROADCAST;
-		msgInundacao.source = idLocal;
-		msgInundacao.type = TIPO_INUNDACAO;
-		msgInundacao.versao = 0;
-		msgInundacao.saltos = 0;
-		
-		var mensagem msgPedido;
-		msgPedido.source = idLocal;
-		msgPedido.type = TIPO_PEDIDO;
+		var mensagem msgRaiz;
+		msgRaiz.source = idLocal;
+		msgRaiz.direcao = DIR_SAIDA;
 		
 		par do
 			/*
 			** Bloco responsavel por enviar uma inundação a cada 60s, acendendo LEDs especificos para fins de alerta que o evento está acontecendo;
-			** Incrementa-se a versão contida na variavel msgInundacao antes de cada envio.
+			** Incrementa-se a versão contida na variavel msgRaiz antes de cada envio.
 			*/
 			loop do
 				par/and do
 					emit LED0(ON);
 					emit LED1(ON);
+					emit LED2(TOGGLE);
 					await 1s;
 					
 					inc versaoLocal;
-					msgInundacao.versao = versaoLocal;
-					qPut(msgInundacao);
+					msgRaiz.versao = versaoLocal;
+					msgRaiz.type = TIPO_INUNDACAO;
+					msgRaiz.target = BROADCAST;
+					msgRaiz.saltos = 0;
+					qPut(msgRaiz);
 					
 					emit LED0(OFF);
 					emit LED1(OFF);
+					emit LED2(TOGGLE);
 				with
-					await 60s;
+					await 100s;
 				end
 			end
 		with
 			/*
 			** Bloco responsavel por enviar pedidos, acendendo LEDs especificos para fins de alerta que o evento está acontecendo;
-			** Incrementa-se a versão contida na variavel msgInundacao antes de cada envio;
+			** Incrementa-se a versão contida na variavel msgRaiz antes de cada envio;
 			** Se a voltagem for maior que 1000, envia-se um pedido de temperatura para o nó DESTINATARIO (42);
 			** Caso a voltagem seja menor que 1000, envia-se para o DESTINATARIO_ALTERNATIVO (23).
 			*/
@@ -119,34 +117,38 @@ with
 					emit REQ_VOLTS();
 					voltLocal = await VOLTS;
 					if voltLocal != 1000 then
+						emit LED0(TOGGLE);
 						emit LED1(ON);
 						emit LED2(ON);
 						await 1s;
 						
-						inc versaoLocal;
-						msgPedido.versao = versaoLocal;
+						msgRaiz.type = TIPO_PEDIDO;
+						msgRaiz.direcao = DIR_SAIDA;
 						if voltLocal > 1000 then
-							msgPedido.destinatario = NO_DESTINATARIO;
+							msgRaiz.destinatario = NO_DESTINATARIO;
 						else/if voltLocal < 1000 then
-							msgPedido.destinatario = NO_DESTINATARIO_ALTERNATIVO;
+							msgRaiz.destinatario = NO_DESTINATARIO_ALTERNATIVO;
 						end
 						
 						var ushort index_roteamento = 0;
-						if msgPedido.destinatario/10 == 1 then
-							index_roteamento = msgPedido.destinatario - 11;
-						else/if msgPedido.destinatario/10 == 2 then
-							index_roteamento = msgPedido.destinatario - 17;
-						else/if msgPedido.destinatario/10 == 3 then
-							index_roteamento = msgPedido.destinatario - 23;
+						if msgRaiz.destinatario/10 == 1 then
+							index_roteamento = msgRaiz.destinatario - 11;
+						else/if msgRaiz.destinatario/10 == 2 then
+							index_roteamento = msgRaiz.destinatario - 17;
+						else/if msgRaiz.destinatario/10 == 3 then
+							index_roteamento = msgRaiz.destinatario - 23;
 						else
-							index_roteamento = msgPedido.destinatario - 29;
+							index_roteamento = msgRaiz.destinatario - 29;
 						end
-						msgPedido.target = tabela_roteamento[index_roteamento];
-						if msgPedido.target == 0 then
-							msgPedido.target = BROADCAST;
-						end
-						qPut(msgPedido);
+						msgRaiz.target = tabela_roteamento[index_roteamento];
+						// Se o nó não tenha um target para envio, então o mesmo será feito em broadcast
+						//if msgRaiz.target == 0 then
+						//	msgRaiz.target = BROADCAST;
+						//end
 						
+						qPut(msgRaiz);
+						
+						emit LED0(TOGGLE);
 						emit LED1(OFF);
 						emit LED2(OFF);
 					end
@@ -161,84 +163,112 @@ with
 	** Bloco responsavel por receber e tratar mensagens antes de enfileira-la para envio
 	*/
 	loop do
-		var mensagem msgRecebida = await RECEIVE;
-		/*
-		** Reponsavel por tratar mensagens de inundação (type=0);
-		** Caso a versão seja maior que a local, atualiza-se as informações locais e as da mensagem antes de passa-la adiante;
-		*/
-		if msgRecebida.type == TIPO_INUNDACAO then
-			if msgRecebida.versao > versaoLocal then
-				emit LED0(ON);
-				
-				await 1s;
-				// Atualização da mensagem para passar adiante;
-				versaoLocal = msgRecebida.versao;
-				progenitorLocal = msgRecebida.source;
-				msgRecebida.source = idLocal;
-				inc msgRecebida.saltos;
-				qPut(msgRecebida);
-				
-				// Atualização da mensagem para roteamento;
-				msgRecebida.target = progenitorLocal;
-				msgRecebida.origem = idLocal;
-				msgRecebida.type = TIPO_ROTEAMENTO;
-				qPut(msgRecebida);
-				
-				emit LED0(OFF);
+		var mensagem tmp = await RECEIVE;
+		tmp.direcao = DIR_ENTRADA;
+		qPut(tmp);
+	end
+with
+	/*
+	** Bloco responsavel por enviar e receber mensagens da fila.
+	*/
+	loop do
+		await Q_READY();
+		loop do
+			if qSize() == 0 then
+				break;
 			end
-		else
-			/*
-			** Reponsavel por tratar mensagens de pedidos de temperatura (type=1);
-			** Caso o nó seja o destinatario, calcula-se a media das temperaturas e envia uma mensagem de resposta a raiz, passando por todos os progenitores;
-			** Caso contrario, passará a mensagem adiante.			
-			*/
-			if msgRecebida.type == TIPO_PEDIDO then
-				if msgRecebida.destinatario == idLocal then
-					emit LED0(ON); // Acende todos os LEDS indicando que o destinatario inicial foi alcançado
-					emit LED1(ON);
-					emit LED2(ON);
-					await 1s;
-					
-					var mensagem msgResposta;
-					msgResposta.source = idLocal;
-					msgResposta.type = TIPO_RESPOSTA;
-					msgResposta.destinatario = NO_RAIZ;
-					msgResposta.temperatura = (temperaturas[0]+temperaturas[1]+temperaturas[2]+temperaturas[3])/4;
-					msgResposta.target = progenitorLocal;
-					msgResposta.versao = versaoLocal;
-					qPut(msgResposta);
-					
-					emit LED0(OFF);
-					emit LED1(OFF);
-					emit LED2(OFF);
+			var mensagem msgRecebida;
+			qGet(msgRecebida);
+			if msgRecebida.direcao == DIR_SAIDA then
+				msgRecebida.source = idLocal;
+				if msgRecebida.type == TIPO_INUNDACAO then
+					emit SEND(msgRecebida);
+					await SEND_DONE;
 				else
-					emit LED1(ON);
-					await 2s;
-					
-					var ushort index_roteamento = 0;
-					if msgRecebida.destinatario/10 == 1 then
-						index_roteamento = msgRecebida.destinatario - 11;
-					else/if msgRecebida.destinatario/10 == 2 then
-						index_roteamento = msgRecebida.destinatario - 17;
-					else/if msgRecebida.destinatario/10 == 3 then
-						index_roteamento = msgRecebida.destinatario - 23;
-					else
-						index_roteamento = msgRecebida.destinatario - 29;
+					loop i,10 do
+						var ubyte confirmacao;
+						emit SEND_ACK(msgRecebida);
+						confirmacao = await SEND_DONE_ACK;
+						if confirmacao == TRUE then
+							break;
+						else
+							await (idLocal) ms;
+						end
 					end
-					msgRecebida.target = tabela_roteamento[index_roteamento];
-					msgRecebida.source = idLocal;
-					qPut(msgRecebida);
-					
-					emit LED1(OFF);
 				end
-				
-			/*
-			** Reponsavel por tratar mensagens de resposta de temperatura (type=2);
-			** Caso a resposta tenha atingido seu destino, ou seja, chegou ao nó raiz, acende-se todos os LEDs para fins de alerta;
-			** Caso contrario, envia-se a mensagem para seu progenitor.
-			*/
 			else
-				if msgRecebida.type == TIPO_RESPOSTA then
+				msgRecebida.direcao = DIR_SAIDA;
+				/*
+				** Reponsavel por tratar mensagens de inundação (type=0);
+				** Caso a versão seja maior que a local, atualiza-se as informações locais e as da mensagem antes de passa-la adiante;
+				*/
+				msgRecebida.direcao = DIR_SAIDA;
+				if msgRecebida.type == TIPO_INUNDACAO then
+					if msgRecebida.versao > versaoLocal then
+						emit LED0(ON);
+						await 1s;
+				
+						// Atualização da mensagem para passar adiante;
+						versaoLocal = msgRecebida.versao;
+						progenitorLocal = msgRecebida.source;
+						inc msgRecebida.saltos;
+						qPut(msgRecebida);
+				
+						// Atualização da mensagem para roteamento;
+						msgRecebida.target = progenitorLocal;
+						msgRecebida.origem = idLocal;
+						msgRecebida.type = TIPO_ROTEAMENTO;
+						qPut(msgRecebida);
+				
+						emit LED0(OFF);
+					end
+				/*
+				** Reponsavel por tratar mensagens de pedidos de temperatura (type=1);
+				** Caso o nó seja o destinatario, calcula-se a media das temperaturas e envia uma mensagem de resposta a raiz, passando por todos os progenitores;
+				** Caso contrario, passará a mensagem adiante.			
+				*/
+				else/if msgRecebida.type == TIPO_PEDIDO then
+					if msgRecebida.destinatario == idLocal then
+						emit LED0(ON);
+						emit LED1(ON);
+						emit LED2(ON);
+						await 1s;
+				
+						msgRecebida.type = TIPO_RESPOSTA;
+						msgRecebida.destinatario = NO_RAIZ;
+						msgRecebida.temperatura = (temperaturas[0]+temperaturas[1]+temperaturas[2]+temperaturas[3])/4;
+						msgRecebida.target = progenitorLocal;
+						msgRecebida.direcao = DIR_SAIDA;
+						qPut(msgRecebida);
+				
+						emit LED0(OFF);
+						emit LED1(OFF);
+						emit LED2(OFF);
+					else
+						emit LED2(ON);
+						await 1s;
+				
+						var ushort index_roteamento = 0;
+						if msgRecebida.destinatario/10 == 1 then
+							index_roteamento = msgRecebida.destinatario - 11;
+						else/if msgRecebida.destinatario/10 == 2 then
+							index_roteamento = msgRecebida.destinatario - 17;
+						else/if msgRecebida.destinatario/10 == 3 then
+							index_roteamento = msgRecebida.destinatario - 23;
+						else
+							index_roteamento = msgRecebida.destinatario - 29;
+						end
+						msgRecebida.target = tabela_roteamento[index_roteamento];
+						qPut(msgRecebida);
+				
+						emit LED2(OFF);
+					end
+				/*
+				** Reponsavel por tratar mensagens de resposta de temperatura (type=2);
+				** Caso a resposta tenha atingido seu destino, ou seja, chegou ao nó raiz, acende-se todos os LEDs para fins de alerta;
+				** Caso contrario, envia-se a mensagem para seu progenitor.
+				*/
+				else/if msgRecebida.type == TIPO_RESPOSTA then
 					if msgRecebida.destinatario == idLocal then
 						emit LED0(ON); // Acende todos os LEDS indicando que o destinatario final foi alcançado
 						emit LED1(ON);
@@ -250,58 +280,40 @@ with
 					else
 						emit LED2(ON);
 						await 1s;
-						
+				
 						msgRecebida.target = progenitorLocal;
 						qPut(msgRecebida);
-						
+				
 						emit LED2(OFF);
 					end
-				else
-					/*
-					** Reponsavel por guardar os sucessores diretos do nó (type=3);
-					** Cada mensagem recebida, informando sobre sucessores, é enfileirada no vetor vizinhosDiretos, de forma a eliminar sempre o mais antigo.
-					*/
-					if msgRecebida.type == TIPO_ROTEAMENTO then
-						emit LED1(ON);
-						await 1s;
-						
-						var ushort index_roteamento = 0;
-						if msgRecebida.origem/10 == 1 then
-							index_roteamento = msgRecebida.origem - 11;
-						else/if msgRecebida.origem/10 == 2 then
-							index_roteamento = msgRecebida.origem - 17;
-						else/if msgRecebida.origem/10 == 3 then
-							index_roteamento = msgRecebida.origem - 23;
-						else
-							index_roteamento = msgRecebida.origem - 29;
-						end
-						tabela_roteamento[index_roteamento] = msgRecebida.source;
-						if idLocal != NO_RAIZ then
-							msgRecebida.source = idLocal;
-							msgRecebida.target = progenitorLocal;
-							qPut(msgRecebida);
-						end
-						emit LED1(OFF);
+				/*
+				** Reponsavel por guardar os sucessores diretos do nó (type=3);
+				** Cada mensagem recebida, informando sobre sucessores, é enfileirada no vetor vizinhosDiretos, de forma a eliminar sempre o mais antigo.
+				*/
+				else/if msgRecebida.type == TIPO_ROTEAMENTO then
+					emit LED1(ON);
+					await 1s;
+			
+					var ushort index_roteamento = 0;
+					if msgRecebida.origem/10 == 1 then
+						index_roteamento = msgRecebida.origem - 11;
+					else/if msgRecebida.origem/10 == 2 then
+						index_roteamento = msgRecebida.origem - 17;
+					else/if msgRecebida.origem/10 == 3 then
+						index_roteamento = msgRecebida.origem - 23;
+					else
+						index_roteamento = msgRecebida.origem - 29;
 					end
+					tabela_roteamento[index_roteamento] = msgRecebida.source;
+					if idLocal != NO_RAIZ then
+						msgRecebida.target = progenitorLocal;
+						qPut(msgRecebida);
+					end
+			
+					emit LED1(OFF);
 				end
 			end
-		end
-	end
-with
-	/*
-	** Bloco responsavel por enviar mensagens da fila.
-	*/
-	loop do
-		await Q_READY();
-		loop do
-			if qSize() == 0 then
-				break;
-			end
-			var mensagem enviar;
-			qGet(enviar);
-			emit SEND(enviar);
-			await SEND_DONE;
-			await 1s;
+			await 100ms;
 		end
 	end
 end

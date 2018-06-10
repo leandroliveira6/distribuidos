@@ -1,4 +1,4 @@
-346 1539 8 12 0 0 96 5 96
+302 1583 8 13 0 0 104 6 104
 00 | 00000 0 track 0
 00 | 00001 0
 00 | 00002 0
@@ -131,51 +131,51 @@
 00 | 00129 0093
 00 | 00130 0094
 00 | 00131 0095
-00 | 00132 0096 inEvt 005 : TEMP
-00 | 00133 0097           : 01 gates
+00 | 00132 0096 wClock 12
+00 | 00133 0097
 00 | 00134 0098
 00 | 00135 0099
-00 | 00136 0100 inEvt 007 : VOLTS
-00 | 00137 0101           : 01 gates
+00 | 00136 0100
+00 | 00137 0101
 00 | 00138 0102
 00 | 00139 0103
-00 | 00140 0104 inEvt 041 : SEND_DONE
+00 | 00140 0104 inEvt 005 : TEMP
 00 | 00141 0105           : 01 gates
 00 | 00142 0106
 00 | 00143 0107
-00 | 00144 0108 inEvt 045 : RECEIVE
+00 | 00144 0108 inEvt 007 : VOLTS
 00 | 00145 0109           : 01 gates
 00 | 00146 0110
 00 | 00147 0111
-00 | 00148 0112 inEvt 046 : Q_READY
+00 | 00148 0112 inEvt 041 : SEND_DONE
 00 | 00149 0113           : 01 gates
 00 | 00150 0114
 00 | 00151 0115
-00 | 00152 0116 $ret:1, 
-00 | 00153 0117 idLocal:2, 
-00 | 00154 0118 
-00 | 00155 0119 progenitorLocal:2, 
-00 | 00156 0120 
-00 | 00157 0121 versaoLocal:2, 
-00 | 00158 0122 
-00 | 00159 0123 tempLocal:2, 
-00 | 00160 0124 
-00 | 00161 0125 voltLocal:2, 
-00 | 00162 0126 
-00 | 00163 0127 temperatura_idx:1, 
-00 | 00164 0128 temperaturas:8, 
-00 | 00165 0129 
+00 | 00152 0116 inEvt 043 : SEND_DONE_ACK
+00 | 00153 0117           : 01 gates
+00 | 00154 0118
+00 | 00155 0119
+00 | 00156 0120 inEvt 045 : RECEIVE
+00 | 00157 0121           : 01 gates
+00 | 00158 0122
+00 | 00159 0123
+00 | 00160 0124 inEvt 046 : Q_READY
+00 | 00161 0125           : 01 gates
+00 | 00162 0126
+00 | 00163 0127
+00 | 00164 0128 $ret:1, 
+00 | 00165 0129 idLocal:2, 
 00 | 00166 0130 
-00 | 00167 0131 
+00 | 00167 0131 progenitorLocal:2, 
 00 | 00168 0132 
-00 | 00169 0133 
+00 | 00169 0133 versaoLocal:2, 
 00 | 00170 0134 
-00 | 00171 0135 
-00 | 00172 0136 tabela_roteamento:32, 
-00 | 00173 0137 
+00 | 00171 0135 tempLocal:2, 
+00 | 00172 0136 
+00 | 00173 0137 voltLocal:2, 
 00 | 00174 0138 
-00 | 00175 0139 
-00 | 00176 0140 
+00 | 00175 0139 temperatura_idx:1, 
+00 | 00176 0140 temperaturas:8, 
 00 | 00177 0141 
 00 | 00178 0142 
 00 | 00179 0143 
@@ -183,7 +183,7 @@
 00 | 00181 0145 
 00 | 00182 0146 
 00 | 00183 0147 
-00 | 00184 0148 
+00 | 00184 0148 tabela_roteamento:32, 
 00 | 00185 0149 
 00 | 00186 0150 
 00 | 00187 0151 
@@ -203,7 +203,7 @@
 00 | 00201 0165 
 00 | 00202 0166 
 00 | 00203 0167 
-00 | 00204 0168 vizinhosDiretos:8, 
+00 | 00204 0168 
 00 | 00205 0169 
 00 | 00206 0170 
 00 | 00207 0171 
@@ -211,13 +211,13 @@
 00 | 00209 0173 
 00 | 00210 0174 
 00 | 00211 0175 
-00 | 00212 0176 vizinhoDireto_idx:1, 
-00 | 00213 0177 i:1, i:1, ParAnd_flag[2], 
-00 | 00214 0178 __i_0x98cc810:1, __i_0x98eea98:1, 
-00 | 00215 0179 msgInundacao:25, 
-00 | 00216 0180 
-00 | 00217 0181 
-00 | 00218 0182 
+00 | 00212 0176 
+00 | 00213 0177 
+00 | 00214 0178 
+00 | 00215 0179 
+00 | 00216 0180 i:1, i:1, ParAnd_flag[2], 
+00 | 00217 0181 __i_0x99e1750:1, __i_0x99f7f68:1, 
+00 | 00218 0182 msgRaiz:25, 
 00 | 00219 0183 
 00 | 00220 0184 
 00 | 00221 0185 
@@ -239,16 +239,16 @@
 00 | 00237 0201 
 00 | 00238 0202 
 00 | 00239 0203 
-00 | 00240 0204 msgPedido:25, 
+00 | 00240 0204 
 00 | 00241 0205 
 00 | 00242 0206 
-00 | 00243 0207 
+00 | 00243 0207 ParAnd_flag[2], 
 00 | 00244 0208 
-00 | 00245 0209 
+00 | 00245 0209 ParAnd_flag[2], 
 00 | 00246 0210 
-00 | 00247 0211 
+00 | 00247 0211 index_roteamento:2, 
 00 | 00248 0212 
-00 | 00249 0213 
+00 | 00249 0213 tmp:25, 
 00 | 00250 0214 
 00 | 00251 0215 
 00 | 00252 0216 
@@ -264,16 +264,16 @@
 00 | 00262 0226 
 00 | 00263 0227 
 00 | 00264 0228 
-00 | 00265 0229 ParAnd_flag[2], 
+00 | 00265 0229 
 00 | 00266 0230 
-00 | 00267 0231 ParAnd_flag[2], 
+00 | 00267 0231 
 00 | 00268 0232 
-00 | 00269 0233 index_roteamento:2, 
+00 | 00269 0233 
 00 | 00270 0234 
-00 | 00271 0235 msgRecebida:25, 
+00 | 00271 0235 
 00 | 00272 0236 
 00 | 00273 0237 
-00 | 00274 0238 
+00 | 00274 0238 msgRecebida:25, 
 00 | 00275 0239 
 00 | 00276 0240 
 00 | 00277 0241 
@@ -295,1246 +295,1290 @@
 00 | 00293 0257 
 00 | 00294 0258 
 00 | 00295 0259 
-00 | 00296 0260 msgResposta:25, index_roteamento:2, index_roteamento:2, 
+00 | 00296 0260 
 00 | 00297 0261 
 00 | 00298 0262 
-00 | 00299 0263 
-00 | 00300 0264 
-00 | 00301 0265 
-00 | 00302 0266 
-00 | 00303 0267 
-00 | 00304 0268 
-00 | 00305 0269 
-00 | 00306 0270 
-00 | 00307 0271 
-00 | 00308 0272 
-00 | 00309 0273 
-00 | 00310 0274 
-00 | 00311 0275 
-00 | 00312 0276 
-00 | 00313 0277 
-00 | 00314 0278 
-00 | 00315 0279 
-00 | 00316 0280 
-00 | 00317 0281 
-00 | 00318 0282 
-00 | 00319 0283 
-00 | 00320 0284 
-00 | 00321 0285 enviar:25, 
-00 | 00322 0286 
-00 | 00323 0287 
-00 | 00324 0288 
-00 | 00325 0289 
-00 | 00326 0290 
-00 | 00327 0291 
-00 | 00328 0292 
-00 | 00329 0293 
-00 | 00330 0294 
-00 | 00331 0295 
-00 | 00332 0296 
-00 | 00333 0297 
-00 | 00334 0298 
-00 | 00335 0299 
-00 | 00336 0300 
-00 | 00337 0301 
-00 | 00338 0302 
-00 | 00339 0303 
-00 | 00340 0304 
-00 | 00341 0305 
-00 | 00342 0306 
-00 | 00343 0307 
-00 | 00344 0308 
-00 | 00345 0309 
-d1 | 00346 d1 set_c ushort 96 1281          | config gate TEMP with 1 await(s) - 0x0501 = 1281
-60 | 00347 60 
-05 | 00348 05 
-01 | 00349 01 
-d1 | 00350 d1 set_c ushort 100 1793         | config gate VOLTS with 1 await(s) - 0x0701 = 1793
-64 | 00351 64 
-07 | 00352 07 
-01 | 00353 01 
-d1 | 00354 d1 set_c ushort 104 10497        | config gate SEND_DONE with 1 await(s) - 0x2901 = 10497
-68 | 00355 68 
-29 | 00356 29 
-01 | 00357 01 
-d1 | 00358 d1 set_c ushort 108 11521        | config gate RECEIVE with 1 await(s) - 0x2d01 = 11521
-6c | 00359 6c 
-2d | 00360 2d 
-01 | 00361 01 
-d1 | 00362 d1 set_c ushort 112 11777        | config gate Q_READY with 1 await(s) - 0x2e01 = 11777
-70 | 00363 70 
-2e | 00364 2e 
-01 | 00365 01 
-24 | 00366 24 func 0                        | func getNodeId
-00 | 00367 00 
-a1 | 00368 a1 pop ushort 117                | pop idLocal
-75 | 00369 75 
-c1 | 00370 c1 set_c ushort 119 0            | progenitorLocal = 0
-77 | 00371 77 
-00 | 00372 00 
-c1 | 00373 c1 set_c ushort 121 0            | versaoLocal = 0
-79 | 00374 79 
+00 | 00299 0263 i:1, index_roteamento:2, index_roteamento:2, 
+00 | 00300 0264 __i_0x9a32848:1, 
+00 | 00301 0265 confirmacao:1, 
+d1 | 00302 d1 set_c ushort 104 1281         | config gate TEMP with 1 await(s) - 0x0501 = 1281
+68 | 00303 68 
+05 | 00304 05 
+01 | 00305 01 
+d1 | 00306 d1 set_c ushort 108 1793         | config gate VOLTS with 1 await(s) - 0x0701 = 1793
+6c | 00307 6c 
+07 | 00308 07 
+01 | 00309 01 
+d1 | 00310 d1 set_c ushort 112 10497        | config gate SEND_DONE with 1 await(s) - 0x2901 = 10497
+70 | 00311 70 
+29 | 00312 29 
+01 | 00313 01 
+d1 | 00314 d1 set_c ushort 116 11009        | config gate SEND_DONE_ACK with 1 await(s) - 0x2b01 = 11009
+74 | 00315 74 
+2b | 00316 2b 
+01 | 00317 01 
+d1 | 00318 d1 set_c ushort 120 11521        | config gate RECEIVE with 1 await(s) - 0x2d01 = 11521
+78 | 00319 78 
+2d | 00320 2d 
+01 | 00321 01 
+d1 | 00322 d1 set_c ushort 124 11777        | config gate Q_READY with 1 await(s) - 0x2e01 = 11777
+7c | 00323 7c 
+2e | 00324 2e 
+01 | 00325 01 
+24 | 00326 24 func 0                        | func getNodeId
+00 | 00327 00 
+a1 | 00328 a1 pop ushort 129                | pop idLocal
+81 | 00329 81 
+c1 | 00330 c1 set_c ushort 131 0            | progenitorLocal = 0
+83 | 00331 83 
+00 | 00332 00 
+c1 | 00333 c1 set_c ushort 133 0            | versaoLocal = 0
+85 | 00334 85 
+00 | 00335 00 
+c1 | 00336 c1 set_c ushort 135 0            | tempLocal = 0
+87 | 00337 87 
+00 | 00338 00 
+c1 | 00339 c1 set_c ushort 137 0            | voltLocal = 0
+89 | 00340 89 
+00 | 00341 00 
+c0 | 00342 c0 set_c ubyte 139 0             | temperatura_idx = 0
+8b | 00343 8b 
+00 | 00344 00 
+c0 | 00345 c0 set_c ubyte 180 0             | i = 0
+b4 | 00346 b4 
+00 | 00347 00 
+c0 | 00348 c0 set_c ubyte 181 3             | __i_0x99e1750 = 3
+b5 | 00349 b5 
+03 | 00350 03 
+90 | 00351 90 push_v ubyte 181              | push __i_0x99e1750:ubyte
+b5 | 00352 b5 
+90 | 00353 90 push_v ubyte 180              | push i:ubyte
+b4 | 00354 b4 
+11 | 00355 11 gte                           | gte
+4f | 00356 4f ifelse 20 21                  | ifelse True_20 False_21
+01 | 00357 .00 addr:361
+69 | 00358 .14 
+01 | 00359 .00 addr:369
+71 | 00360 .15 
+3d | 00361 3d tkins_z 1 6 15                | insert track Loop_out_15 tree 6
+86 | 00362 86 
+01 | 00363 .00 addr:382
+7e | 00364 .0f 
+01 | 00365 01 end                           | end
+39 | 00366 39 exec 22                       | goto  22
+01 | 00367 .00 addr:351
+5f | 00368 .0d 
+2b | 00369 2b setarr_vc ushort 140 ubyte 180 4 0  | temperaturas[i] = 0
+10 | 00370 10 
+00 | 00371 00 
+8c | 00372 8c 
+b4 | 00373 b4 
+04 | 00374 04 
 00 | 00375 00 
-c1 | 00376 c1 set_c ushort 123 0            | tempLocal = 0
-7b | 00377 7b 
-00 | 00378 00 
-c1 | 00379 c1 set_c ushort 125 0            | voltLocal = 0
-7d | 00380 7d 
-00 | 00381 00 
-c0 | 00382 c0 set_c ubyte 127 0             | temperatura_idx = 0
-7f | 00383 7f 
+40 | 00376 40 push_c 180                    | push &i
+b4 | 00377 b4 
+60 | 00378 60 inc ubyte                     | inc ubyte
+39 | 00379 39 exec 22                       | goto  22
+01 | 00380 .00 addr:351
+5f | 00381 .0d 
+c0 | 00382 c0 set_c ubyte 180 0             | i = 0
+b4 | 00383 b4 
 00 | 00384 00 
-c0 | 00385 c0 set_c ubyte 177 0             | i = 0
-b1 | 00386 b1 
-00 | 00387 00 
-c0 | 00388 c0 set_c ubyte 178 3             | __i_0x98cc810 = 3
-b2 | 00389 b2 
-03 | 00390 03 
-90 | 00391 90 push_v ubyte 178              | push __i_0x98cc810:ubyte
-b2 | 00392 b2 
-90 | 00393 90 push_v ubyte 177              | push i:ubyte
-b1 | 00394 b1 
-11 | 00395 11 gte                           | gte
-4f | 00396 4f ifelse 20 21                  | ifelse True_20 False_21
-01 | 00397 .00 addr:401
-91 | 00398 .14 
-01 | 00399 .00 addr:409
-99 | 00400 .15 
-3d | 00401 3d tkins_z 1 6 15                | insert track Loop_out_15 tree 6
-86 | 00402 86 
-01 | 00403 .00 addr:422
-a6 | 00404 .0f 
-01 | 00405 01 end                           | end
-39 | 00406 39 exec 22                       | goto  22
-01 | 00407 .00 addr:391
-87 | 00408 .0d 
-2b | 00409 2b setarr_vc ushort 128 ubyte 177 4 0  | temperaturas[i] = 0
-10 | 00410 10 
-00 | 00411 00 
-80 | 00412 80 
-b1 | 00413 b1 
-04 | 00414 04 
-00 | 00415 00 
-40 | 00416 40 push_c 177                    | push &i
-b1 | 00417 b1 
-60 | 00418 60 inc ubyte                     | inc ubyte
-39 | 00419 39 exec 22                       | goto  22
-01 | 00420 .00 addr:391
-87 | 00421 .0d 
-c0 | 00422 c0 set_c ubyte 177 0             | i = 0
-b1 | 00423 b1 
-00 | 00424 00 
-c0 | 00425 c0 set_c ubyte 178 15            | __i_0x98eea98 = 15
-b2 | 00426 b2 
-0f | 00427 0f 
-90 | 00428 90 push_v ubyte 178              | push __i_0x98eea98:ubyte
-b2 | 00429 b2 
-90 | 00430 90 push_v ubyte 177              | push i:ubyte
-b1 | 00431 b1 
-11 | 00432 11 gte                           | gte
-4f | 00433 4f ifelse 32 33                  | ifelse True_32 False_33
-01 | 00434 .00 addr:438
-b6 | 00435 .20 
-01 | 00436 .00 addr:446
-be | 00437 .21 
-3d | 00438 3d tkins_z 1 6 27                | insert track Loop_out_27 tree 6
-86 | 00439 86 
-01 | 00440 .00 addr:459
-cb | 00441 .1b 
-01 | 00442 01 end                           | end
-39 | 00443 39 exec 34                       | goto  34
-01 | 00444 .00 addr:428
-ac | 00445 .19 
-2b | 00446 2b setarr_vc ushort 136 ubyte 177 16 0  | tabela_roteamento[i] = 0
-10 | 00447 10 
-00 | 00448 00 
-88 | 00449 88 
-b1 | 00450 b1 
-10 | 00451 10 
-00 | 00452 00 
-40 | 00453 40 push_c 177                    | push &i
-b1 | 00454 b1 
-60 | 00455 60 inc ubyte                     | inc ubyte
-39 | 00456 39 exec 34                       | goto  34
-01 | 00457 .00 addr:428
-ac | 00458 .19 
-c0 | 00459 c0 set_c ubyte 176 0             | vizinhoDireto_idx = 0
-b0 | 00460 b0 
-00 | 00461 00 
-89 | 00462 89 tkins_max 0 36                | insert track ParEver_sub_1_36
-01 | 00463 .00 addr:475
-db | 00464 .24 
-89 | 00465 89 tkins_max 0 37                | insert track ParEver_sub_2_37
-02 | 00466 .00 addr:580
-44 | 00467 .25 
-89 | 00468 89 tkins_max 0 38                | insert track ParEver_sub_3_38
-03 | 00469 .00 addr:941
-ad | 00470 .26 
-89 | 00471 89 tkins_max 0 39                | insert track ParEver_sub_4_39
-05 | 00472 .00 addr:1470
-be | 00473 .27 
-01 | 00474 01 end                           | end
-48 | 00475 48 memclr 177 2                  | clear gates from addr 177 to addr 178
-b1 | 00476 b1 
-02 | 00477 02 
-89 | 00478 89 tkins_max 0 46                | insert track ParAnd_sub_1_46
-01 | 00479 .00 addr:485
-e5 | 00480 .2e 
-89 | 00481 89 tkins_max 0 47                | insert track ParAnd_sub_2_47
-02 | 00482 .00 addr:550
-26 | 00483 .2f 
-01 | 00484 01 end                           | end
-26 | 00485 26 outevt_z 9                    | emit REQ_TEMP
-09 | 00486 09 
-d1 | 00487 d1 set_c ushort 98 52            | await TEMP[0]
-62 | 00488 62 
-01 | 00489 .00 addr:492
-ec | 00490 .34 
-01 | 00491 01 end                           | end
-5c | 00492 5c getextdt_v 123 2              | getExtData tempLocal 2
-7b | 00493 7b 
-02 | 00494 02 
-41 | 00495 41 push_c 600                    | push 600
-02 | 00496 02 
-58 | 00497 58 
-91 | 00498 91 push_v ushort 123             | push tempLocal:ushort
-7b | 00499 7b 
-13 | 00500 13 gt                            | gt
-4f | 00501 4f ifelse 58 59                  | ifelse True_58 False_59
-01 | 00502 .00 addr:506
-fa | 00503 .3a 
-02 | 00504 .00 addr:512
-00 | 00505 .3b 
-58 | 00506 58 outevt_c 8 1                  | emit LED2 len=1 const=1
-08 | 00507 08 
-01 | 00508 01 
-39 | 00509 39 exec 60                       | goto  60
-02 | 00510 .00 addr:518
-06 | 00511 .3c 
-58 | 00512 58 outevt_c 8 0                  | emit LED2 len=1 const=0
-08 | 00513 08 
-00 | 00514 00 
-39 | 00515 39 exec 60                       | goto  60
-02 | 00516 .00 addr:518
-06 | 00517 .3c 
-2c | 00518 2c setarr_vv ushort 128 ubyte 127 4 ushort 123  | temperaturas[temperatura_idx] = tempLocal
-10 | 00519 10 
-01 | 00520 01 
-80 | 00521 80 
-7f | 00522 7f 
-04 | 00523 04 
-7b | 00524 7b 
-40 | 00525 40 push_c 127                    | push &temperatura_idx
-7f | 00526 7f 
-60 | 00527 60 inc ubyte                     | inc ubyte
-40 | 00528 40 push_c 4                      | push 4
-04 | 00529 04 
-90 | 00530 90 push_v ubyte 127              | push temperatura_idx:ubyte
-7f | 00531 7f 
-0f | 00532 0f eq                            | eq
-4f | 00533 4f ifelse 63 64                  | ifelse True_63 EndIf_64
-02 | 00534 .00 addr:538
-1a | 00535 .3f 
-02 | 00536 .00 addr:544
-20 | 00537 .40 
-c0 | 00538 c0 set_c ubyte 127 0             | temperatura_idx = 0
-7f | 00539 7f 
-00 | 00540 00 
-39 | 00541 39 exec 64                       | goto  64
-02 | 00542 .00 addr:544
-20 | 00543 .40 
-c0 | 00544 c0 set_c ubyte 177 1             | open gate 1
-b1 | 00545 b1 
-01 | 00546 01 
-39 | 00547 39 exec 48                       | goto  48
-02 | 00548 .00 addr:564
-34 | 00549 .30 
-29 | 00550 29 clken_c 0 10000 65            | clock enable Awake_10000_65 10000msec
-03 | 00551 03 
-00 | 00552 00 
-27 | 00553 27 
-10 | 00554 10 
-02 | 00555 .00 addr:558
-2e | 00556 .41 
-01 | 00557 01 end                           | end
-c0 | 00558 c0 set_c ubyte 178 1             | open gate 2
-b2 | 00559 b2 
-01 | 00560 01 
-39 | 00561 39 exec 48                       | goto  48
-02 | 00562 .00 addr:564
-34 | 00563 .30 
-3a | 00564 3a chkret 177                    | ParAnd_out_49 -- if (gate 0 == 0) PC=PC+1
-b1 | 00565 b1 
-01 | 00566 01 end                           | end
-3a | 00567 3a chkret 178                    | ParAnd_out_49 -- if (gate 1 == 0) PC=PC+1
-b2 | 00568 b2 
-01 | 00569 01 end                           | end
-39 | 00570 39 exec 43                       | goto  43
-01 | 00571 .00 addr:475
-db | 00572 .2b 
-48 | 00573 48 memclr 0 8                    | clear WClocks gates from 0 to 1
-00 | 00574 00 
-08 | 00575 08 
-48 | 00576 48 memclr 98 2                   | clear EXT gates for TEMP
-62 | 00577 62 
-02 | 00578 02 
-01 | 00579 01 end                           | end
-40 | 00580 40 push_c 11                     | push 11
-0b | 00581 0b 
-91 | 00582 91 push_v ushort 117             | push idLocal:ushort
-75 | 00583 75 
-0f | 00584 0f eq                            | eq
-4f | 00585 4f ifelse 147 148                | ifelse True_147 EndIf_148
-02 | 00586 .00 addr:590
-4e | 00587 .93 
-03 | 00588 .00 addr:940
-ac | 00589 .94 
-d1 | 00590 d1 set_c ushort 182 0xffff       | msgInundacao.target = 0xffff
-b6 | 00591 b6 
-ff | 00592 ff 
-ff | 00593 ff 
-2a | 00594 2a set_v ushort 180 ushort 117   | msgInundacao.source = idLocal
-11 | 00595 11 
-b4 | 00596 b4 
-75 | 00597 75 
-c0 | 00598 c0 set_c ubyte 179 0             | msgInundacao.type = 0
-b3 | 00599 b3 
-00 | 00600 00 
-c1 | 00601 c1 set_c ushort 188 0            | msgInundacao.versao = 0
-bc | 00602 bc 
-00 | 00603 00 
-c1 | 00604 c1 set_c ushort 190 0            | msgInundacao.saltos = 0
-be | 00605 be 
-00 | 00606 00 
-2a | 00607 2a set_v ushort 205 ushort 117   | msgPedido.source = idLocal
-11 | 00608 11 
-cd | 00609 cd 
-75 | 00610 75 
-c0 | 00611 c0 set_c ubyte 204 1             | msgPedido.type = 1
-cc | 00612 cc 
-01 | 00613 01 
-89 | 00614 89 tkins_max 0 69                | insert track ParEver_sub_1_69
-02 | 00615 .00 addr:621
-6d | 00616 .45 
-89 | 00617 89 tkins_max 0 70                | insert track ParEver_sub_2_70
-02 | 00618 .00 addr:696
-b8 | 00619 .46 
-01 | 00620 01 end                           | end
-48 | 00621 48 memclr 229 2                  | clear gates from addr 229 to addr 230
-e5 | 00622 e5 
-02 | 00623 02 
-89 | 00624 89 tkins_max 0 77                | insert track ParAnd_sub_1_77
-02 | 00625 .00 addr:631
-77 | 00626 .4d 
-89 | 00627 89 tkins_max 0 78                | insert track ParAnd_sub_2_78
-02 | 00628 .00 addr:669
-9d | 00629 .4e 
-01 | 00630 01 end                           | end
-58 | 00631 58 outevt_c 6 1                  | emit LED0 len=1 const=1
-06 | 00632 06 
-01 | 00633 01 
-58 | 00634 58 outevt_c 7 1                  | emit LED1 len=1 const=1
-07 | 00635 07 
+c0 | 00385 c0 set_c ubyte 181 15            | __i_0x99f7f68 = 15
+b5 | 00386 b5 
+0f | 00387 0f 
+90 | 00388 90 push_v ubyte 181              | push __i_0x99f7f68:ubyte
+b5 | 00389 b5 
+90 | 00390 90 push_v ubyte 180              | push i:ubyte
+b4 | 00391 b4 
+11 | 00392 11 gte                           | gte
+4f | 00393 4f ifelse 32 33                  | ifelse True_32 False_33
+01 | 00394 .00 addr:398
+8e | 00395 .20 
+01 | 00396 .00 addr:406
+96 | 00397 .21 
+3d | 00398 3d tkins_z 1 6 27                | insert track Loop_out_27 tree 6
+86 | 00399 86 
+01 | 00400 .00 addr:419
+a3 | 00401 .1b 
+01 | 00402 01 end                           | end
+39 | 00403 39 exec 34                       | goto  34
+01 | 00404 .00 addr:388
+84 | 00405 .19 
+2b | 00406 2b setarr_vc ushort 148 ubyte 180 16 0  | tabela_roteamento[i] = 0
+10 | 00407 10 
+00 | 00408 00 
+94 | 00409 94 
+b4 | 00410 b4 
+10 | 00411 10 
+00 | 00412 00 
+40 | 00413 40 push_c 180                    | push &i
+b4 | 00414 b4 
+60 | 00415 60 inc ubyte                     | inc ubyte
+39 | 00416 39 exec 34                       | goto  34
+01 | 00417 .00 addr:388
+84 | 00418 .19 
+89 | 00419 89 tkins_max 0 35                | insert track ParEver_sub_1_35
+01 | 00420 .00 addr:432
+b0 | 00421 .23 
+89 | 00422 89 tkins_max 0 36                | insert track ParEver_sub_2_36
+02 | 00423 .00 addr:537
+19 | 00424 .24 
+89 | 00425 89 tkins_max 0 37                | insert track ParEver_sub_3_37
+03 | 00426 .00 addr:886
+76 | 00427 .25 
+89 | 00428 89 tkins_max 0 38                | insert track ParEver_sub_4_38
+03 | 00429 .00 addr:909
+8d | 00430 .26 
+01 | 00431 01 end                           | end
+48 | 00432 48 memclr 180 2                  | clear gates from addr 180 to addr 181
+b4 | 00433 b4 
+02 | 00434 02 
+89 | 00435 89 tkins_max 0 45                | insert track ParAnd_sub_1_45
+01 | 00436 .00 addr:442
+ba | 00437 .2d 
+89 | 00438 89 tkins_max 0 46                | insert track ParAnd_sub_2_46
+01 | 00439 .00 addr:507
+fb | 00440 .2e 
+01 | 00441 01 end                           | end
+26 | 00442 26 outevt_z 9                    | emit REQ_TEMP
+09 | 00443 09 
+d1 | 00444 d1 set_c ushort 106 51           | await TEMP[0]
+6a | 00445 6a 
+01 | 00446 .00 addr:449
+c1 | 00447 .33 
+01 | 00448 01 end                           | end
+5c | 00449 5c getextdt_v 135 2              | getExtData tempLocal 2
+87 | 00450 87 
+02 | 00451 02 
+41 | 00452 41 push_c 600                    | push 600
+02 | 00453 02 
+58 | 00454 58 
+91 | 00455 91 push_v ushort 135             | push tempLocal:ushort
+87 | 00456 87 
+13 | 00457 13 gt                            | gt
+4f | 00458 4f ifelse 57 58                  | ifelse True_57 False_58
+01 | 00459 .00 addr:463
+cf | 00460 .39 
+01 | 00461 .00 addr:469
+d5 | 00462 .3a 
+58 | 00463 58 outevt_c 8 1                  | emit LED2 len=1 const=1
+08 | 00464 08 
+01 | 00465 01 
+39 | 00466 39 exec 59                       | goto  59
+01 | 00467 .00 addr:475
+db | 00468 .3b 
+58 | 00469 58 outevt_c 8 0                  | emit LED2 len=1 const=0
+08 | 00470 08 
+00 | 00471 00 
+39 | 00472 39 exec 59                       | goto  59
+01 | 00473 .00 addr:475
+db | 00474 .3b 
+2c | 00475 2c setarr_vv ushort 140 ubyte 139 4 ushort 135  | temperaturas[temperatura_idx] = tempLocal
+10 | 00476 10 
+01 | 00477 01 
+8c | 00478 8c 
+8b | 00479 8b 
+04 | 00480 04 
+87 | 00481 87 
+40 | 00482 40 push_c 139                    | push &temperatura_idx
+8b | 00483 8b 
+60 | 00484 60 inc ubyte                     | inc ubyte
+40 | 00485 40 push_c 4                      | push 4
+04 | 00486 04 
+90 | 00487 90 push_v ubyte 139              | push temperatura_idx:ubyte
+8b | 00488 8b 
+0f | 00489 0f eq                            | eq
+4f | 00490 4f ifelse 62 63                  | ifelse True_62 EndIf_63
+01 | 00491 .00 addr:495
+ef | 00492 .3e 
+01 | 00493 .00 addr:501
+f5 | 00494 .3f 
+c0 | 00495 c0 set_c ubyte 139 0             | temperatura_idx = 0
+8b | 00496 8b 
+00 | 00497 00 
+39 | 00498 39 exec 63                       | goto  63
+01 | 00499 .00 addr:501
+f5 | 00500 .3f 
+c0 | 00501 c0 set_c ubyte 180 1             | open gate 1
+b4 | 00502 b4 
+01 | 00503 01 
+39 | 00504 39 exec 47                       | goto  47
+02 | 00505 .00 addr:521
+09 | 00506 .2f 
+29 | 00507 29 clken_c 0 10000 64            | clock enable Awake_10000_64 10000msec
+03 | 00508 03 
+00 | 00509 00 
+27 | 00510 27 
+10 | 00511 10 
+02 | 00512 .00 addr:515
+03 | 00513 .40 
+01 | 00514 01 end                           | end
+c0 | 00515 c0 set_c ubyte 181 1             | open gate 2
+b5 | 00516 b5 
+01 | 00517 01 
+39 | 00518 39 exec 47                       | goto  47
+02 | 00519 .00 addr:521
+09 | 00520 .2f 
+3a | 00521 3a chkret 180                    | ParAnd_out_48 -- if (gate 0 == 0) PC=PC+1
+b4 | 00522 b4 
+01 | 00523 01 end                           | end
+3a | 00524 3a chkret 181                    | ParAnd_out_48 -- if (gate 1 == 0) PC=PC+1
+b5 | 00525 b5 
+01 | 00526 01 end                           | end
+39 | 00527 39 exec 42                       | goto  42
+01 | 00528 .00 addr:432
+b0 | 00529 .2a 
+48 | 00530 48 memclr 0 8                    | clear WClocks gates from 0 to 1
+00 | 00531 00 
+08 | 00532 08 
+48 | 00533 48 memclr 106 2                  | clear EXT gates for TEMP
+6a | 00534 6a 
+02 | 00535 02 
+01 | 00536 01 end                           | end
+40 | 00537 40 push_c 11                     | push 11
+0b | 00538 0b 
+91 | 00539 91 push_v ushort 129             | push idLocal:ushort
+81 | 00540 81 
+0f | 00541 0f eq                            | eq
+4f | 00542 4f ifelse 149 150                | ifelse True_149 EndIf_150
+02 | 00543 .00 addr:547
+23 | 00544 .95 
+03 | 00545 .00 addr:885
+75 | 00546 .96 
+2a | 00547 2a set_v ushort 183 ushort 129   | msgRaiz.source = idLocal
+11 | 00548 11 
+b7 | 00549 b7 
+81 | 00550 81 
+c0 | 00551 c0 set_c ubyte 197 0             | msgRaiz.direcao = 0
+c5 | 00552 c5 
+00 | 00553 00 
+89 | 00554 89 tkins_max 0 67                | insert track ParEver_sub_1_67
+02 | 00555 .00 addr:561
+31 | 00556 .43 
+89 | 00557 89 tkins_max 0 68                | insert track ParEver_sub_2_68
+02 | 00558 .00 addr:653
+8d | 00559 .44 
+01 | 00560 01 end                           | end
+48 | 00561 48 memclr 207 2                  | clear gates from addr 207 to addr 208
+cf | 00562 cf 
+02 | 00563 02 
+89 | 00564 89 tkins_max 0 75                | insert track ParAnd_sub_1_75
+02 | 00565 .00 addr:571
+3b | 00566 .4b 
+89 | 00567 89 tkins_max 0 76                | insert track ParAnd_sub_2_76
+02 | 00568 .00 addr:625
+71 | 00569 .4c 
+01 | 00570 01 end                           | end
+58 | 00571 58 outevt_c 6 1                  | emit LED0 len=1 const=1
+06 | 00572 06 
+01 | 00573 01 
+58 | 00574 58 outevt_c 7 1                  | emit LED1 len=1 const=1
+07 | 00575 07 
+01 | 00576 01 
+58 | 00577 58 outevt_c 8 2                  | emit LED2 len=1 const=2
+08 | 00578 08 
+02 | 00579 02 
+29 | 00580 29 clken_c 1 1000 85             | clock enable Awake_1000_85 1000msec
+03 | 00581 03 
+01 | 00582 01 
+03 | 00583 03 
+e8 | 00584 e8 
+02 | 00585 .00 addr:588
+4c | 00586 .55 
+01 | 00587 01 end                           | end
+40 | 00588 40 push_c 133                    | push &versaoLocal
+85 | 00589 85 
+61 | 00590 61 inc ushort                    | inc ushort
+2a | 00591 2a set_v ushort 191 ushort 133   | msgRaiz.versao = versaoLocal
+11 | 00592 11 
+bf | 00593 bf 
+85 | 00594 85 
+c0 | 00595 c0 set_c ubyte 182 0             | msgRaiz.type = 0
+b6 | 00596 b6 
+00 | 00597 00 
+d1 | 00598 d1 set_c ushort 185 0xffff       | msgRaiz.target = 0xffff
+b9 | 00599 b9 
+ff | 00600 ff 
+ff | 00601 ff 
+c1 | 00602 c1 set_c ushort 193 0            | msgRaiz.saltos = 0
+c1 | 00603 c1 
+00 | 00604 00 
+40 | 00605 40 push_c 182                    | push_c &msgRaiz:mensagem
+b6 | 00606 b6 
+24 | 00607 24 func 10                       | func qPut
+0a | 00608 0a 
+17 | 00609 17 popx                          | popx 
+58 | 00610 58 outevt_c 6 0                  | emit LED0 len=1 const=0
+06 | 00611 06 
+00 | 00612 00 
+58 | 00613 58 outevt_c 7 0                  | emit LED1 len=1 const=0
+07 | 00614 07 
+00 | 00615 00 
+58 | 00616 58 outevt_c 8 2                  | emit LED2 len=1 const=2
+08 | 00617 08 
+02 | 00618 02 
+c0 | 00619 c0 set_c ubyte 207 1             | open gate 1
+cf | 00620 cf 
+01 | 00621 01 
+39 | 00622 39 exec 77                       | goto  77
+02 | 00623 .00 addr:640
+80 | 00624 .4d 
+29 | 00625 29 clken_c 2 100000 94           | clock enable Awake_100000_94 100000msec
+05 | 00626 05 
+02 | 00627 02 
+01 | 00628 01 
+86 | 00629 86 
+a0 | 00630 a0 
+02 | 00631 .00 addr:634
+7a | 00632 .5e 
+01 | 00633 01 end                           | end
+c0 | 00634 c0 set_c ubyte 208 1             | open gate 2
+d0 | 00635 d0 
 01 | 00636 01 
-29 | 00637 29 clken_c 1 1000 85             | clock enable Awake_1000_85 1000msec
-03 | 00638 03 
-01 | 00639 01 
-03 | 00640 03 
-e8 | 00641 e8 
-02 | 00642 .00 addr:645
-85 | 00643 .55 
-01 | 00644 01 end                           | end
-40 | 00645 40 push_c 121                    | push &versaoLocal
-79 | 00646 79 
-61 | 00647 61 inc ushort                    | inc ushort
-2a | 00648 2a set_v ushort 188 ushort 121   | msgInundacao.versao = versaoLocal
-11 | 00649 11 
-bc | 00650 bc 
-79 | 00651 79 
-40 | 00652 40 push_c 179                    | push_c &msgInundacao:mensagem
-b3 | 00653 b3 
-24 | 00654 24 func 10                       | func qPut
-0a | 00655 0a 
-17 | 00656 17 popx                          | popx 
-58 | 00657 58 outevt_c 6 0                  | emit LED0 len=1 const=0
-06 | 00658 06 
-00 | 00659 00 
-58 | 00660 58 outevt_c 7 0                  | emit LED1 len=1 const=0
-07 | 00661 07 
-00 | 00662 00 
-c0 | 00663 c0 set_c ubyte 229 1             | open gate 1
-e5 | 00664 e5 
-01 | 00665 01 
-39 | 00666 39 exec 79                       | goto  79
-02 | 00667 .00 addr:683
-ab | 00668 .4f 
-29 | 00669 29 clken_c 2 60000 92            | clock enable Awake_60000_92 60000msec
-03 | 00670 03 
-02 | 00671 02 
-ea | 00672 ea 
-60 | 00673 60 
-02 | 00674 .00 addr:677
-a5 | 00675 .5c 
-01 | 00676 01 end                           | end
-c0 | 00677 c0 set_c ubyte 230 1             | open gate 2
-e6 | 00678 e6 
-01 | 00679 01 
-39 | 00680 39 exec 79                       | goto  79
-02 | 00681 .00 addr:683
-ab | 00682 .4f 
-3a | 00683 3a chkret 229                    | ParAnd_out_80 -- if (gate 0 == 0) PC=PC+1
-e5 | 00684 e5 
-01 | 00685 01 end                           | end
-3a | 00686 3a chkret 230                    | ParAnd_out_80 -- if (gate 1 == 0) PC=PC+1
-e6 | 00687 e6 
-01 | 00688 01 end                           | end
-39 | 00689 39 exec 74                       | goto  74
-02 | 00690 .00 addr:621
-6d | 00691 .4a 
-48 | 00692 48 memclr 8 16                   | clear WClocks gates from 1 to 3
-08 | 00693 08 
-10 | 00694 10 
-01 | 00695 01 end                           | end
-48 | 00696 48 memclr 231 2                  | clear gates from addr 231 to addr 232
-e7 | 00697 e7 
-02 | 00698 02 
-89 | 00699 89 tkins_max 0 96                | insert track ParAnd_sub_1_96
-02 | 00700 .00 addr:706
-c2 | 00701 .60 
-89 | 00702 89 tkins_max 0 97                | insert track ParAnd_sub_2_97
-03 | 00703 .00 addr:910
-8e | 00704 .61 
-01 | 00705 01 end                           | end
-26 | 00706 26 outevt_z 11                   | emit REQ_VOLTS
-0b | 00707 0b 
-d1 | 00708 d1 set_c ushort 102 102          | await VOLTS[0]
-66 | 00709 66 
-02 | 00710 .00 addr:713
-c9 | 00711 .66 
-01 | 00712 01 end                           | end
-5c | 00713 5c getextdt_v 125 2              | getExtData voltLocal 2
-7d | 00714 7d 
-02 | 00715 02 
-41 | 00716 41 push_c 1000                   | push 1000
-03 | 00717 03 
-e8 | 00718 e8 
-91 | 00719 91 push_v ushort 125             | push voltLocal:ushort
-7d | 00720 7d 
-10 | 00721 10 neq                           | neq
-4f | 00722 4f ifelse 144 145                | ifelse True_144 EndIf_145
-02 | 00723 .00 addr:727
-d7 | 00724 .90 
-03 | 00725 .00 addr:904
-88 | 00726 .91 
-58 | 00727 58 outevt_c 7 1                  | emit LED1 len=1 const=1
-07 | 00728 07 
-01 | 00729 01 
-58 | 00730 58 outevt_c 8 1                  | emit LED2 len=1 const=1
-08 | 00731 08 
-01 | 00732 01 
-29 | 00733 29 clken_c 3 1000 108            | clock enable Awake_1000_108 1000msec
-03 | 00734 03 
-03 | 00735 03 
-03 | 00736 03 
-e8 | 00737 e8 
-02 | 00738 .00 addr:741
-e5 | 00739 .6c 
-01 | 00740 01 end                           | end
-40 | 00741 40 push_c 121                    | push &versaoLocal
-79 | 00742 79 
-61 | 00743 61 inc ushort                    | inc ushort
-2a | 00744 2a set_v ushort 213 ushort 121   | msgPedido.versao = versaoLocal
-11 | 00745 11 
-d5 | 00746 d5 
-79 | 00747 79 
-41 | 00748 41 push_c 1000                   | push 1000
-03 | 00749 03 
-e8 | 00750 e8 
-91 | 00751 91 push_v ushort 125             | push voltLocal:ushort
-7d | 00752 7d 
-13 | 00753 13 gt                            | gt
-4f | 00754 4f ifelse 114 115                | ifelse True_114 False_115
-02 | 00755 .00 addr:759
-f7 | 00756 .72 
-02 | 00757 .00 addr:765
-fd | 00758 .73 
-c1 | 00759 c1 set_c ushort 209 41           | msgPedido.destinatario = 41
-d1 | 00760 d1 
-29 | 00761 29 
-39 | 00762 39 exec 116                      | goto  116
-03 | 00763 .00 addr:782
-0e | 00764 .74 
-41 | 00765 41 push_c 1000                   | push 1000
-03 | 00766 03 
-e8 | 00767 e8 
-91 | 00768 91 push_v ushort 125             | push voltLocal:ushort
-7d | 00769 7d 
-14 | 00770 14 lt                            | lt
-4f | 00771 4f ifelse 112 113                | ifelse True_112 EndIf_113
-03 | 00772 .00 addr:776
-08 | 00773 .70 
-03 | 00774 .00 addr:782
-0e | 00775 .74 
-c1 | 00776 c1 set_c ushort 209 23           | msgPedido.destinatario = 23
-d1 | 00777 d1 
-17 | 00778 17 
-39 | 00779 39 exec 113                      | goto  113
-03 | 00780 .00 addr:782
-0e | 00781 .74 
-c1 | 00782 c1 set_c ushort 233 0            | index_roteamento = 0
-e9 | 00783 e9 
-00 | 00784 00 
-40 | 00785 40 push_c 1                      | push 1
-01 | 00786 01 
-40 | 00787 40 push_c 10                     | push 10
-0a | 00788 0a 
-91 | 00789 91 push_v ushort 209                    | push msgPedido.destinatario [Optm:: push_c addr + deref]
-d1 | 00790 d1 
-09 | 00791 09 div                           | div
-0f | 00792 0f eq                            | eq
-4f | 00793 4f ifelse 131 132                | ifelse True_131 False_132
-03 | 00794 .00 addr:798
-1e | 00795 .83 
-03 | 00796 .00 addr:808
-28 | 00797 .84 
-40 | 00798 40 push_c 11                     | push 11
-0b | 00799 0b 
-91 | 00800 91 push_v ushort 209                    | push msgPedido.destinatario [Optm:: push_c addr + deref]
-d1 | 00801 d1 
-05 | 00802 05 sub                           | sub
-a1 | 00803 a1 pop ushort 233                | pop index_roteamento
-e9 | 00804 e9 
-39 | 00805 39 exec 133                      | goto  133
-03 | 00806 .00 addr:864
-60 | 00807 .85 
-40 | 00808 40 push_c 2                      | push 2
-02 | 00809 02 
-40 | 00810 40 push_c 10                     | push 10
-0a | 00811 0a 
-91 | 00812 91 push_v ushort 209                    | push msgPedido.destinatario [Optm:: push_c addr + deref]
-d1 | 00813 d1 
-09 | 00814 09 div                           | div
-0f | 00815 0f eq                            | eq
-4f | 00816 4f ifelse 128 129                | ifelse True_128 False_129
-03 | 00817 .00 addr:821
-35 | 00818 .80 
-03 | 00819 .00 addr:831
-3f | 00820 .81 
-40 | 00821 40 push_c 17                     | push 17
-11 | 00822 11 
-91 | 00823 91 push_v ushort 209                    | push msgPedido.destinatario [Optm:: push_c addr + deref]
-d1 | 00824 d1 
-05 | 00825 05 sub                           | sub
-a1 | 00826 a1 pop ushort 233                | pop index_roteamento
-e9 | 00827 e9 
-39 | 00828 39 exec 130                      | goto  130
-03 | 00829 .00 addr:864
-60 | 00830 .85 
-40 | 00831 40 push_c 3                      | push 3
-03 | 00832 03 
-40 | 00833 40 push_c 10                     | push 10
-0a | 00834 0a 
-91 | 00835 91 push_v ushort 209                    | push msgPedido.destinatario [Optm:: push_c addr + deref]
-d1 | 00836 d1 
-09 | 00837 09 div                           | div
-0f | 00838 0f eq                            | eq
-4f | 00839 4f ifelse 125 126                | ifelse True_125 False_126
-03 | 00840 .00 addr:844
-4c | 00841 .7d 
-03 | 00842 .00 addr:854
-56 | 00843 .7e 
-40 | 00844 40 push_c 23                     | push 23
-17 | 00845 17 
-91 | 00846 91 push_v ushort 209                    | push msgPedido.destinatario [Optm:: push_c addr + deref]
-d1 | 00847 d1 
-05 | 00848 05 sub                           | sub
-a1 | 00849 a1 pop ushort 233                | pop index_roteamento
-e9 | 00850 e9 
-39 | 00851 39 exec 127                      | goto  127
-03 | 00852 .00 addr:864
-60 | 00853 .85 
-40 | 00854 40 push_c 29                     | push 29
-1d | 00855 1d 
-91 | 00856 91 push_v ushort 209                    | push msgPedido.destinatario [Optm:: push_c addr + deref]
-d1 | 00857 d1 
-05 | 00858 05 sub                           | sub
-a1 | 00859 a1 pop ushort 233                | pop index_roteamento
-e9 | 00860 e9 
-39 | 00861 39 exec 127                      | goto  127
-03 | 00862 .00 addr:864
-60 | 00863 .85 
-32 | 00864 32 pusharr_v ushort 136 ushort 233 16  | pusharr_v &tabela_roteamento[index_roteamento]
-11 | 00865 11 
-88 | 00866 88 
-e9 | 00867 e9 
-10 | 00868 10 
-71 | 00869 71 deref ushort                  | deref ushort
-40 | 00870 40 push_c 207                    | push_c &msgPedido.target:ushort
-cf | 00871 cf 
-69 | 00872 69 set_e ushort                  | set (ushort)*(pop1) = pop2
-40 | 00873 40 push_c 0                      | push 0
-00 | 00874 00 
-91 | 00875 91 push_v ushort 207                    | push msgPedido.target [Optm:: push_c addr + deref]
-cf | 00876 cf 
-0f | 00877 0f eq                            | eq
-4f | 00878 4f ifelse 137 138                | ifelse True_137 EndIf_138
-03 | 00879 .00 addr:883
-73 | 00880 .89 
-03 | 00881 .00 addr:890
-7a | 00882 .8a 
-d1 | 00883 d1 set_c ushort 207 0xffff       | msgPedido.target = 0xffff
-cf | 00884 cf 
-ff | 00885 ff 
-ff | 00886 ff 
-39 | 00887 39 exec 138                      | goto  138
-03 | 00888 .00 addr:890
-7a | 00889 .8a 
-40 | 00890 40 push_c 204                    | push_c &msgPedido:mensagem
-cc | 00891 cc 
-24 | 00892 24 func 10                       | func qPut
-0a | 00893 0a 
-17 | 00894 17 popx                          | popx 
-58 | 00895 58 outevt_c 7 0                  | emit LED1 len=1 const=0
-07 | 00896 07 
-00 | 00897 00 
-58 | 00898 58 outevt_c 8 0                  | emit LED2 len=1 const=0
-08 | 00899 08 
-00 | 00900 00 
-39 | 00901 39 exec 145                      | goto  145
-03 | 00902 .00 addr:904
-88 | 00903 .91 
-c0 | 00904 c0 set_c ubyte 231 1             | open gate 1
-e7 | 00905 e7 
-01 | 00906 01 
-39 | 00907 39 exec 98                       | goto  98
-03 | 00908 .00 addr:924
-9c | 00909 .62 
-29 | 00910 29 clken_c 4 4000 146            | clock enable Awake_4000_146 4000msec
-03 | 00911 03 
-04 | 00912 04 
-0f | 00913 0f 
-a0 | 00914 a0 
-03 | 00915 .00 addr:918
-96 | 00916 .92 
-01 | 00917 01 end                           | end
-c0 | 00918 c0 set_c ubyte 232 1             | open gate 2
-e8 | 00919 e8 
-01 | 00920 01 
-39 | 00921 39 exec 98                       | goto  98
-03 | 00922 .00 addr:924
-9c | 00923 .62 
-3a | 00924 3a chkret 231                    | ParAnd_out_99 -- if (gate 0 == 0) PC=PC+1
-e7 | 00925 e7 
-01 | 00926 01 end                           | end
-3a | 00927 3a chkret 232                    | ParAnd_out_99 -- if (gate 1 == 0) PC=PC+1
-e8 | 00928 e8 
-01 | 00929 01 end                           | end
-39 | 00930 39 exec 93                       | goto  93
-02 | 00931 .00 addr:696
-b8 | 00932 .5d 
-48 | 00933 48 memclr 24 16                  | clear WClocks gates from 3 to 5
-18 | 00934 18 
-10 | 00935 10 
-48 | 00936 48 memclr 102 2                  | clear EXT gates for VOLTS
-66 | 00937 66 
-02 | 00938 02 
-01 | 00939 01 end                           | end
-01 | 00940 01 end                           | end
-d1 | 00941 d1 set_c ushort 110 153          | await RECEIVE[0]
-6e | 00942 6e 
-03 | 00943 .00 addr:946
-b2 | 00944 .99 
-01 | 00945 01 end                           | end
-5c | 00946 5c getextdt_v 235 25             | getExtData msgRecebida 25
-eb | 00947 eb 
-19 | 00948 19 
-40 | 00949 40 push_c 0                      | push 0
-00 | 00950 00 
-90 | 00951 90 push_v ubyte 235                    | push msgRecebida.type [Optm:: push_c addr + deref]
-eb | 00952 eb 
-0f | 00953 0f eq                            | eq
-4f | 00954 4f ifelse 288 289                | ifelse True_288 False_289
-03 | 00955 .01 addr:959
-bf | 00956 .20 
-03 | 00957 .01 addr:1022
-fe | 00958 .21 
-91 | 00959 91 push_v ushort 121             | push versaoLocal:ushort
-79 | 00960 79 
-91 | 00961 91 push_v ushort 244                    | push msgRecebida.versao [Optm:: push_c addr + deref]
-f4 | 00962 f4 
-13 | 00963 13 gt                            | gt
-4f | 00964 4f ifelse 169 170                | ifelse True_169 EndIf_170
-03 | 00965 .00 addr:969
-c9 | 00966 .a9 
-03 | 00967 .00 addr:941
-ad | 00968 .95 
-58 | 00969 58 outevt_c 6 1                  | emit LED0 len=1 const=1
-06 | 00970 06 
-01 | 00971 01 
-29 | 00972 29 clken_c 5 1000 159            | clock enable Awake_1000_159 1000msec
-03 | 00973 03 
-05 | 00974 05 
-03 | 00975 03 
-e8 | 00976 e8 
-03 | 00977 .00 addr:980
-d4 | 00978 .9f 
-01 | 00979 01 end                           | end
-2a | 00980 2a set_v ushort 121 ushort 244   | versaoLocal = msgRecebida.versao
-11 | 00981 11 
-79 | 00982 79 
-f4 | 00983 f4 
-2a | 00984 2a set_v ushort 119 ushort 236   | progenitorLocal = msgRecebida.source
-11 | 00985 11 
-77 | 00986 77 
-ec | 00987 ec 
-2a | 00988 2a set_v ushort 236 ushort 117   | msgRecebida.source = idLocal
-11 | 00989 11 
-ec | 00990 ec 
-75 | 00991 75 
-40 | 00992 40 push_c 246                    | push msgRecebida.saltos
-f6 | 00993 f6 
-61 | 00994 61 inc ushort                    | inc ushort
-40 | 00995 40 push_c 235                    | push_c &msgRecebida:mensagem
-eb | 00996 eb 
-24 | 00997 24 func 10                       | func qPut
-0a | 00998 0a 
-17 | 00999 17 popx                          | popx 
-2a | 01000 2a set_v ushort 238 ushort 119   | msgRecebida.target = progenitorLocal
-11 | 01001 11 
-ee | 01002 ee 
-77 | 01003 77 
-2a | 01004 2a set_v ushort 248 ushort 117   | msgRecebida.origem = idLocal
-11 | 01005 11 
-f8 | 01006 f8 
-75 | 01007 75 
-c0 | 01008 c0 set_c ubyte 235 3             | msgRecebida.type = 3
-eb | 01009 eb 
-03 | 01010 03 
-40 | 01011 40 push_c 235                    | push_c &msgRecebida:mensagem
-eb | 01012 eb 
-24 | 01013 24 func 10                       | func qPut
-0a | 01014 0a 
-17 | 01015 17 popx                          | popx 
-58 | 01016 58 outevt_c 6 0                  | emit LED0 len=1 const=0
-06 | 01017 06 
-00 | 01018 00 
-39 | 01019 39 exec 170                      | goto  170
-03 | 01020 .00 addr:941
-ad | 01021 .95 
-40 | 01022 40 push_c 1                      | push 1
-01 | 01023 01 
-90 | 01024 90 push_v ubyte 235                    | push msgRecebida.type [Optm:: push_c addr + deref]
-eb | 01025 eb 
-0f | 01026 0f eq                            | eq
-4f | 01027 4f ifelse 285 286                | ifelse True_285 False_286
-04 | 01028 .01 addr:1032
-08 | 01029 .1d 
-04 | 01030 .01 addr:1240
-d8 | 01031 .1e 
-91 | 01032 91 push_v ushort 117             | push idLocal:ushort
-75 | 01033 75 
-91 | 01034 91 push_v ushort 240                    | push msgRecebida.destinatario [Optm:: push_c addr + deref]
-f0 | 01035 f0 
-0f | 01036 0f eq                            | eq
-4f | 01037 4f ifelse 221 222                | ifelse True_221 False_222
-04 | 01038 .00 addr:1042
-12 | 01039 .dd 
-04 | 01040 .00 addr:1117
-5d | 01041 .de 
-58 | 01042 58 outevt_c 6 1                  | emit LED0 len=1 const=1
-06 | 01043 06 
-01 | 01044 01 
-58 | 01045 58 outevt_c 7 1                  | emit LED1 len=1 const=1
-07 | 01046 07 
-01 | 01047 01 
-58 | 01048 58 outevt_c 8 1                  | emit LED2 len=1 const=1
-08 | 01049 08 
-01 | 01050 01 
-29 | 01051 29 clken_c 6 1000 180            | clock enable Awake_1000_180 1000msec
-03 | 01052 03 
-06 | 01053 06 
-03 | 01054 03 
-e8 | 01055 e8 
-04 | 01056 .00 addr:1059
-23 | 01057 .b4 
-01 | 01058 01 end                           | end
-2a | 01059 2a set_v ushort 261 ushort 117   | msgResposta.source = idLocal
-91 | 01060 91 
-01 | 01061 01 
-05 | 01062 05 
-75 | 01063 75 
-c8 | 01064 c8 set_c ubyte 260 2             | msgResposta.type = 2
-01 | 01065 01 
-04 | 01066 04 
-02 | 01067 02 
-c9 | 01068 c9 set_c ushort 265 11           | msgResposta.destinatario = 11
-01 | 01069 01 
-09 | 01070 09 
-0b | 01071 0b 
-40 | 01072 40 push_c 4                      | push 4
-04 | 01073 04 
-91 | 01074 91 push_v ushort 134                    | push_v ushort &temperaturas[3] [Optm:: push_c addr + deref]
-86 | 01075 86 
-91 | 01076 91 push_v ushort 132                    | push_v ushort &temperaturas[2] [Optm:: push_c addr + deref]
-84 | 01077 84 
-91 | 01078 91 push_v ushort 130                    | push_v ushort &temperaturas[1] [Optm:: push_c addr + deref]
-82 | 01079 82 
-91 | 01080 91 push_v ushort 128                    | push_v ushort &temperaturas[0] [Optm:: push_c addr + deref]
-80 | 01081 80 
-06 | 01082 06 add                           | add
-06 | 01083 06 add                           | add
-06 | 01084 06 add                           | add
-09 | 01085 09 div                           | div
-a9 | 01086 a9 pop ushort 267                | pop msgResposta.temperatura
-01 | 01087 01 
-0b | 01088 0b 
-2a | 01089 2a set_v ushort 263 ushort 119   | msgResposta.target = progenitorLocal
-91 | 01090 91 
-01 | 01091 01 
-07 | 01092 07 
-77 | 01093 77 
-2a | 01094 2a set_v ushort 269 ushort 121   | msgResposta.versao = versaoLocal
-91 | 01095 91 
-01 | 01096 01 
-0d | 01097 0d 
-79 | 01098 79 
-41 | 01099 41 push_c 260                    | push_c &msgResposta:mensagem
-01 | 01100 01 
-04 | 01101 04 
-24 | 01102 24 func 10                       | func qPut
-0a | 01103 0a 
-17 | 01104 17 popx                          | popx 
-58 | 01105 58 outevt_c 6 0                  | emit LED0 len=1 const=0
-06 | 01106 06 
-00 | 01107 00 
-58 | 01108 58 outevt_c 7 0                  | emit LED1 len=1 const=0
-07 | 01109 07 
-00 | 01110 00 
-58 | 01111 58 outevt_c 8 0                  | emit LED2 len=1 const=0
-08 | 01112 08 
-00 | 01113 00 
-39 | 01114 39 exec 223                      | goto  223
-03 | 01115 .00 addr:941
-ad | 01116 .95 
-58 | 01117 58 outevt_c 7 1                  | emit LED1 len=1 const=1
-07 | 01118 07 
-01 | 01119 01 
-29 | 01120 29 clken_c 7 2000 197            | clock enable Awake_2000_197 2000msec
-03 | 01121 03 
-07 | 01122 07 
-07 | 01123 07 
-d0 | 01124 d0 
-04 | 01125 .00 addr:1128
-68 | 01126 .c5 
-01 | 01127 01 end                           | end
-c9 | 01128 c9 set_c ushort 260 0            | index_roteamento = 0
-01 | 01129 01 
-04 | 01130 04 
-00 | 01131 00 
-40 | 01132 40 push_c 1                      | push 1
-01 | 01133 01 
-40 | 01134 40 push_c 10                     | push 10
-0a | 01135 0a 
-91 | 01136 91 push_v ushort 240                    | push msgRecebida.destinatario [Optm:: push_c addr + deref]
-f0 | 01137 f0 
-09 | 01138 09 div                           | div
-0f | 01139 0f eq                            | eq
-4f | 01140 4f ifelse 212 213                | ifelse True_212 False_213
-04 | 01141 .00 addr:1145
-79 | 01142 .d4 
-04 | 01143 .00 addr:1156
-84 | 01144 .d5 
-40 | 01145 40 push_c 11                     | push 11
-0b | 01146 0b 
-91 | 01147 91 push_v ushort 240                    | push msgRecebida.destinatario [Optm:: push_c addr + deref]
-f0 | 01148 f0 
-05 | 01149 05 sub                           | sub
-a9 | 01150 a9 pop ushort 260                | pop index_roteamento
+39 | 00637 39 exec 77                       | goto  77
+02 | 00638 .00 addr:640
+80 | 00639 .4d 
+3a | 00640 3a chkret 207                    | ParAnd_out_78 -- if (gate 0 == 0) PC=PC+1
+cf | 00641 cf 
+01 | 00642 01 end                           | end
+3a | 00643 3a chkret 208                    | ParAnd_out_78 -- if (gate 1 == 0) PC=PC+1
+d0 | 00644 d0 
+01 | 00645 01 end                           | end
+39 | 00646 39 exec 72                       | goto  72
+02 | 00647 .00 addr:561
+31 | 00648 .48 
+48 | 00649 48 memclr 8 16                   | clear WClocks gates from 1 to 3
+08 | 00650 08 
+10 | 00651 10 
+01 | 00652 01 end                           | end
+48 | 00653 48 memclr 209 2                  | clear gates from addr 209 to addr 210
+d1 | 00654 d1 
+02 | 00655 02 
+89 | 00656 89 tkins_max 0 98                | insert track ParAnd_sub_1_98
+02 | 00657 .00 addr:663
+97 | 00658 .62 
+89 | 00659 89 tkins_max 0 99                | insert track ParAnd_sub_2_99
+03 | 00660 .00 addr:855
+57 | 00661 .63 
+01 | 00662 01 end                           | end
+26 | 00663 26 outevt_z 11                   | emit REQ_VOLTS
+0b | 00664 0b 
+d1 | 00665 d1 set_c ushort 110 104          | await VOLTS[0]
+6e | 00666 6e 
+02 | 00667 .00 addr:670
+9e | 00668 .68 
+01 | 00669 01 end                           | end
+5c | 00670 5c getextdt_v 137 2              | getExtData voltLocal 2
+89 | 00671 89 
+02 | 00672 02 
+41 | 00673 41 push_c 1000                   | push 1000
+03 | 00674 03 
+e8 | 00675 e8 
+91 | 00676 91 push_v ushort 137             | push voltLocal:ushort
+89 | 00677 89 
+10 | 00678 10 neq                           | neq
+4f | 00679 4f ifelse 146 147                | ifelse True_146 EndIf_147
+02 | 00680 .00 addr:684
+ac | 00681 .92 
+03 | 00682 .00 addr:849
+51 | 00683 .93 
+58 | 00684 58 outevt_c 6 2                  | emit LED0 len=1 const=2
+06 | 00685 06 
+02 | 00686 02 
+58 | 00687 58 outevt_c 7 1                  | emit LED1 len=1 const=1
+07 | 00688 07 
+01 | 00689 01 
+58 | 00690 58 outevt_c 8 1                  | emit LED2 len=1 const=1
+08 | 00691 08 
+01 | 00692 01 
+29 | 00693 29 clken_c 3 1000 112            | clock enable Awake_1000_112 1000msec
+03 | 00694 03 
+03 | 00695 03 
+03 | 00696 03 
+e8 | 00697 e8 
+02 | 00698 .00 addr:701
+bd | 00699 .70 
+01 | 00700 01 end                           | end
+c0 | 00701 c0 set_c ubyte 182 1             | msgRaiz.type = 1
+b6 | 00702 b6 
+01 | 00703 01 
+c0 | 00704 c0 set_c ubyte 197 0             | msgRaiz.direcao = 0
+c5 | 00705 c5 
+00 | 00706 00 
+41 | 00707 41 push_c 1000                   | push 1000
+03 | 00708 03 
+e8 | 00709 e8 
+91 | 00710 91 push_v ushort 137             | push voltLocal:ushort
+89 | 00711 89 
+13 | 00712 13 gt                            | gt
+4f | 00713 4f ifelse 117 118                | ifelse True_117 False_118
+02 | 00714 .00 addr:718
+ce | 00715 .75 
+02 | 00716 .00 addr:724
+d4 | 00717 .76 
+c1 | 00718 c1 set_c ushort 187 41           | msgRaiz.destinatario = 41
+bb | 00719 bb 
+29 | 00720 29 
+39 | 00721 39 exec 119                      | goto  119
+02 | 00722 .00 addr:741
+e5 | 00723 .77 
+41 | 00724 41 push_c 1000                   | push 1000
+03 | 00725 03 
+e8 | 00726 e8 
+91 | 00727 91 push_v ushort 137             | push voltLocal:ushort
+89 | 00728 89 
+14 | 00729 14 lt                            | lt
+4f | 00730 4f ifelse 115 116                | ifelse True_115 EndIf_116
+02 | 00731 .00 addr:735
+df | 00732 .73 
+02 | 00733 .00 addr:741
+e5 | 00734 .77 
+c1 | 00735 c1 set_c ushort 187 23           | msgRaiz.destinatario = 23
+bb | 00736 bb 
+17 | 00737 17 
+39 | 00738 39 exec 116                      | goto  116
+02 | 00739 .00 addr:741
+e5 | 00740 .77 
+c1 | 00741 c1 set_c ushort 211 0            | index_roteamento = 0
+d3 | 00742 d3 
+00 | 00743 00 
+40 | 00744 40 push_c 1                      | push 1
+01 | 00745 01 
+40 | 00746 40 push_c 10                     | push 10
+0a | 00747 0a 
+91 | 00748 91 push_v ushort 187                    | push msgRaiz.destinatario [Optm:: push_c addr + deref]
+bb | 00749 bb 
+09 | 00750 09 div                           | div
+0f | 00751 0f eq                            | eq
+4f | 00752 4f ifelse 134 135                | ifelse True_134 False_135
+02 | 00753 .00 addr:757
+f5 | 00754 .86 
+02 | 00755 .00 addr:767
+ff | 00756 .87 
+40 | 00757 40 push_c 11                     | push 11
+0b | 00758 0b 
+91 | 00759 91 push_v ushort 187                    | push msgRaiz.destinatario [Optm:: push_c addr + deref]
+bb | 00760 bb 
+05 | 00761 05 sub                           | sub
+a1 | 00762 a1 pop ushort 211                | pop index_roteamento
+d3 | 00763 d3 
+39 | 00764 39 exec 136                      | goto  136
+03 | 00765 .00 addr:823
+37 | 00766 .88 
+40 | 00767 40 push_c 2                      | push 2
+02 | 00768 02 
+40 | 00769 40 push_c 10                     | push 10
+0a | 00770 0a 
+91 | 00771 91 push_v ushort 187                    | push msgRaiz.destinatario [Optm:: push_c addr + deref]
+bb | 00772 bb 
+09 | 00773 09 div                           | div
+0f | 00774 0f eq                            | eq
+4f | 00775 4f ifelse 131 132                | ifelse True_131 False_132
+03 | 00776 .00 addr:780
+0c | 00777 .83 
+03 | 00778 .00 addr:790
+16 | 00779 .84 
+40 | 00780 40 push_c 17                     | push 17
+11 | 00781 11 
+91 | 00782 91 push_v ushort 187                    | push msgRaiz.destinatario [Optm:: push_c addr + deref]
+bb | 00783 bb 
+05 | 00784 05 sub                           | sub
+a1 | 00785 a1 pop ushort 211                | pop index_roteamento
+d3 | 00786 d3 
+39 | 00787 39 exec 133                      | goto  133
+03 | 00788 .00 addr:823
+37 | 00789 .88 
+40 | 00790 40 push_c 3                      | push 3
+03 | 00791 03 
+40 | 00792 40 push_c 10                     | push 10
+0a | 00793 0a 
+91 | 00794 91 push_v ushort 187                    | push msgRaiz.destinatario [Optm:: push_c addr + deref]
+bb | 00795 bb 
+09 | 00796 09 div                           | div
+0f | 00797 0f eq                            | eq
+4f | 00798 4f ifelse 128 129                | ifelse True_128 False_129
+03 | 00799 .00 addr:803
+23 | 00800 .80 
+03 | 00801 .00 addr:813
+2d | 00802 .81 
+40 | 00803 40 push_c 23                     | push 23
+17 | 00804 17 
+91 | 00805 91 push_v ushort 187                    | push msgRaiz.destinatario [Optm:: push_c addr + deref]
+bb | 00806 bb 
+05 | 00807 05 sub                           | sub
+a1 | 00808 a1 pop ushort 211                | pop index_roteamento
+d3 | 00809 d3 
+39 | 00810 39 exec 130                      | goto  130
+03 | 00811 .00 addr:823
+37 | 00812 .88 
+40 | 00813 40 push_c 29                     | push 29
+1d | 00814 1d 
+91 | 00815 91 push_v ushort 187                    | push msgRaiz.destinatario [Optm:: push_c addr + deref]
+bb | 00816 bb 
+05 | 00817 05 sub                           | sub
+a1 | 00818 a1 pop ushort 211                | pop index_roteamento
+d3 | 00819 d3 
+39 | 00820 39 exec 130                      | goto  130
+03 | 00821 .00 addr:823
+37 | 00822 .88 
+32 | 00823 32 pusharr_v ushort 148 ushort 211 16  | pusharr_v &tabela_roteamento[index_roteamento]
+11 | 00824 11 
+94 | 00825 94 
+d3 | 00826 d3 
+10 | 00827 10 
+71 | 00828 71 deref ushort                  | deref ushort
+40 | 00829 40 push_c 185                    | push_c &msgRaiz.target:ushort
+b9 | 00830 b9 
+69 | 00831 69 set_e ushort                  | set (ushort)*(pop1) = pop2
+40 | 00832 40 push_c 182                    | push_c &msgRaiz:mensagem
+b6 | 00833 b6 
+24 | 00834 24 func 10                       | func qPut
+0a | 00835 0a 
+17 | 00836 17 popx                          | popx 
+58 | 00837 58 outevt_c 6 2                  | emit LED0 len=1 const=2
+06 | 00838 06 
+02 | 00839 02 
+58 | 00840 58 outevt_c 7 0                  | emit LED1 len=1 const=0
+07 | 00841 07 
+00 | 00842 00 
+58 | 00843 58 outevt_c 8 0                  | emit LED2 len=1 const=0
+08 | 00844 08 
+00 | 00845 00 
+39 | 00846 39 exec 147                      | goto  147
+03 | 00847 .00 addr:849
+51 | 00848 .93 
+c0 | 00849 c0 set_c ubyte 209 1             | open gate 1
+d1 | 00850 d1 
+01 | 00851 01 
+39 | 00852 39 exec 100                      | goto  100
+03 | 00853 .00 addr:869
+65 | 00854 .64 
+29 | 00855 29 clken_c 4 4000 148            | clock enable Awake_4000_148 4000msec
+03 | 00856 03 
+04 | 00857 04 
+0f | 00858 0f 
+a0 | 00859 a0 
+03 | 00860 .00 addr:863
+5f | 00861 .94 
+01 | 00862 01 end                           | end
+c0 | 00863 c0 set_c ubyte 210 1             | open gate 2
+d2 | 00864 d2 
+01 | 00865 01 
+39 | 00866 39 exec 100                      | goto  100
+03 | 00867 .00 addr:869
+65 | 00868 .64 
+3a | 00869 3a chkret 209                    | ParAnd_out_101 -- if (gate 0 == 0) PC=PC+1
+d1 | 00870 d1 
+01 | 00871 01 end                           | end
+3a | 00872 3a chkret 210                    | ParAnd_out_101 -- if (gate 1 == 0) PC=PC+1
+d2 | 00873 d2 
+01 | 00874 01 end                           | end
+39 | 00875 39 exec 95                       | goto  95
+02 | 00876 .00 addr:653
+8d | 00877 .5f 
+48 | 00878 48 memclr 24 16                  | clear WClocks gates from 3 to 5
+18 | 00879 18 
+10 | 00880 10 
+48 | 00881 48 memclr 110 2                  | clear EXT gates for VOLTS
+6e | 00882 6e 
+02 | 00883 02 
+01 | 00884 01 end                           | end
+01 | 00885 01 end                           | end
+d1 | 00886 d1 set_c ushort 122 155          | await RECEIVE[0]
+7a | 00887 7a 
+03 | 00888 .00 addr:891
+7b | 00889 .9b 
+01 | 00890 01 end                           | end
+5c | 00891 5c getextdt_v 213 25             | getExtData tmp 25
+d5 | 00892 d5 
+19 | 00893 19 
+c0 | 00894 c0 set_c ubyte 228 1             | tmp.direcao = 1
+e4 | 00895 e4 
+01 | 00896 01 
+40 | 00897 40 push_c 213                    | push_c &tmp:mensagem
+d5 | 00898 d5 
+24 | 00899 24 func 10                       | func qPut
+0a | 00900 0a 
+17 | 00901 17 popx                          | popx 
+39 | 00902 39 exec 151                      | goto  151
+03 | 00903 .00 addr:886
+76 | 00904 .97 
+48 | 00905 48 memclr 122 2                  | clear EXT gates for RECEIVE
+7a | 00906 7a 
+02 | 00907 02 
+01 | 00908 01 end                           | end
+d1 | 00909 d1 set_c ushort 126 160          | await Q_READY[0]
+7e | 00910 7e 
+03 | 00911 .00 addr:914
+92 | 00912 .a0 
+01 | 00913 01 end                           | end
+40 | 00914 40 push_c 0                      | push 0
+00 | 00915 00 
+24 | 00916 24 func 12                       | func qSize
+0c | 00917 0c 
+0f | 00918 0f eq                            | eq
+4f | 00919 4f ifelse 164 165                | ifelse True_164 EndIf_165
+03 | 00920 .00 addr:924
+9c | 00921 .a4 
+03 | 00922 .00 addr:932
+a4 | 00923 .a5 
+3d | 00924 3d tkins_z 1 10 163              | insert track Loop_out_163 tree 10
+8a | 00925 8a 
+06 | 00926 .00 addr:1554
+12 | 00927 .a3 
+01 | 00928 01 end                           | end
+39 | 00929 39 exec 165                      | goto  165
+03 | 00930 .00 addr:932
+a4 | 00931 .a5 
+40 | 00932 40 push_c 238                    | push_c &msgRecebida:mensagem
+ee | 00933 ee 
+24 | 00934 24 func 11                       | func qGet
+0b | 00935 0b 
+17 | 00936 17 popx                          | popx 
+40 | 00937 40 push_c 0                      | push 0
+00 | 00938 00 
+90 | 00939 90 push_v ubyte 253                    | push msgRecebida.direcao [Optm:: push_c addr + deref]
+fd | 00940 fd 
+0f | 00941 0f eq                            | eq
+4f | 00942 4f ifelse 331 332                | ifelse True_331 False_332
+03 | 00943 .01 addr:947
+b3 | 00944 .4b 
+04 | 00945 .01 addr:1051
+1b | 00946 .4c 
+2a | 00947 2a set_v ushort 239 ushort 129   | msgRecebida.source = idLocal
+11 | 00948 11 
+ef | 00949 ef 
+81 | 00950 81 
+40 | 00951 40 push_c 0                      | push 0
+00 | 00952 00 
+90 | 00953 90 push_v ubyte 238                    | push msgRecebida.type [Optm:: push_c addr + deref]
+ee | 00954 ee 
+0f | 00955 0f eq                            | eq
+4f | 00956 4f ifelse 196 197                | ifelse True_196 False_197
+03 | 00957 .00 addr:961
+c1 | 00958 .c4 
+03 | 00959 .00 addr:969
+c9 | 00960 .c5 
+b1 | 00961 b1 outevt_v 40 238               | emit SEND len=25 var=msgRecebida
+28 | 00962 28 
+ee | 00963 ee 
+d1 | 00964 d1 set_c ushort 114 173          | await SEND_DONE[0]
+72 | 00965 72 
+06 | 00966 .01 addr:1547
+0b | 00967 .4d 
+01 | 00968 01 end                           | end
+c8 | 00969 c8 set_c ubyte 263 0             | i = 0
+01 | 00970 01 
+07 | 00971 07 
+00 | 00972 00 
+c8 | 00973 c8 set_c ubyte 264 10            | __i_0x9a32848 = 10
+01 | 00974 01 
+08 | 00975 08 
+0a | 00976 0a 
+98 | 00977 98 push_v ubyte 264              | push __i_0x9a32848:ubyte
+01 | 00978 01 
+08 | 00979 08 
+98 | 00980 98 push_v ubyte 263              | push i:ubyte
+01 | 00981 01 
+07 | 00982 07 
+11 | 00983 11 gte                           | gte
+4f | 00984 4f ifelse 193 194                | ifelse True_193 False_194
+03 | 00985 .00 addr:989
+dd | 00986 .c1 
+03 | 00987 .00 addr:997
+e5 | 00988 .c2 
+3d | 00989 3d tkins_z 1 18 178              | insert track Loop_out_178 tree 18
+92 | 00990 92 
+04 | 00991 .00 addr:1042
+12 | 00992 .b2 
+01 | 00993 01 end                           | end
+39 | 00994 39 exec 195                      | goto  195
+03 | 00995 .00 addr:977
+d1 | 00996 .b0 
+b1 | 00997 b1 outevt_v 41 238               | emit SEND_ACK len=25 var=msgRecebida
+29 | 00998 29 
+ee | 00999 ee 
+d1 | 01000 d1 set_c ushort 118 186          | await SEND_DONE_ACK[0]
+76 | 01001 76 
+03 | 01002 .00 addr:1005
+ed | 01003 .ba 
+01 | 01004 01 end                           | end
+5e | 01005 5e getextdt_v 265 1              | getExtData confirmacao 1
+01 | 01006 01 
+09 | 01007 09 
+01 | 01008 01 
+40 | 01009 40 push_c 1                      | push 1
+01 | 01010 01 
+98 | 01011 98 push_v ubyte 265              | push confirmacao:ubyte
+01 | 01012 01 
+09 | 01013 09 
+0f | 01014 0f eq                            | eq
+4f | 01015 4f ifelse 190 191                | ifelse True_190 False_191
+03 | 01016 .00 addr:1020
+fc | 01017 .be 
+04 | 01018 .00 addr:1028
+04 | 01019 .bf 
+3d | 01020 3d tkins_z 1 18 178              | insert track Loop_out_178 tree 18
+92 | 01021 92 
+04 | 01022 .00 addr:1042
+12 | 01023 .b2 
+01 | 01024 01 end                           | end
+39 | 01025 39 exec 192                      | goto  192
+04 | 01026 .00 addr:1035
+0b | 01027 .c0 
+28 | 01028 28 clken_v 5 0 ushort 129 189    | clock enable Awake_idLocal_189 (idLocal:ushort)ms
+09 | 01029 09 
+05 | 01030 05 
+81 | 01031 81 
+04 | 01032 .00 addr:1035
+0b | 01033 .c0 
+01 | 01034 01 end                           | end
+41 | 01035 41 push_c 263                    | push &i
+01 | 01036 01 
+07 | 01037 07 
+60 | 01038 60 inc ubyte                     | inc ubyte
+39 | 01039 39 exec 195                      | goto  195
+03 | 01040 .00 addr:977
+d1 | 01041 .b0 
+48 | 01042 48 memclr 40 8                   | clear WClocks gates from 5 to 6
+28 | 01043 28 
+08 | 01044 08 
+48 | 01045 48 memclr 118 2                  | clear EXT gates for SEND_DONE_ACK
+76 | 01046 76 
+02 | 01047 02 
+39 | 01048 39 exec 198                      | goto  198
+06 | 01049 .01 addr:1547
+0b | 01050 .4d 
+c0 | 01051 c0 set_c ubyte 253 0             | msgRecebida.direcao = 0
+fd | 01052 fd 
+00 | 01053 00 
+c0 | 01054 c0 set_c ubyte 253 0             | msgRecebida.direcao = 0
+fd | 01055 fd 
+00 | 01056 00 
+40 | 01057 40 push_c 0                      | push 0
+00 | 01058 00 
+90 | 01059 90 push_v ubyte 238                    | push msgRecebida.type [Optm:: push_c addr + deref]
+ee | 01060 ee 
+0f | 01061 0f eq                            | eq
+4f | 01062 4f ifelse 328 329                | ifelse True_328 False_329
+04 | 01063 .01 addr:1067
+2b | 01064 .48 
+04 | 01065 .01 addr:1126
+66 | 01066 .49 
+91 | 01067 91 push_v ushort 133             | push versaoLocal:ushort
+85 | 01068 85 
+91 | 01069 91 push_v ushort 247                    | push msgRecebida.versao [Optm:: push_c addr + deref]
+f7 | 01070 f7 
+13 | 01071 13 gt                            | gt
+4f | 01072 4f ifelse 213 214                | ifelse True_213 EndIf_214
+04 | 01073 .00 addr:1077
+35 | 01074 .d5 
+06 | 01075 .01 addr:1547
+0b | 01076 .4d 
+58 | 01077 58 outevt_c 6 1                  | emit LED0 len=1 const=1
+06 | 01078 06 
+01 | 01079 01 
+29 | 01080 29 clken_c 6 1000 204            | clock enable Awake_1000_204 1000msec
+03 | 01081 03 
+06 | 01082 06 
+03 | 01083 03 
+e8 | 01084 e8 
+04 | 01085 .00 addr:1088
+40 | 01086 .cc 
+01 | 01087 01 end                           | end
+2a | 01088 2a set_v ushort 133 ushort 247   | versaoLocal = msgRecebida.versao
+11 | 01089 11 
+85 | 01090 85 
+f7 | 01091 f7 
+2a | 01092 2a set_v ushort 131 ushort 239   | progenitorLocal = msgRecebida.source
+11 | 01093 11 
+83 | 01094 83 
+ef | 01095 ef 
+40 | 01096 40 push_c 249                    | push msgRecebida.saltos
+f9 | 01097 f9 
+61 | 01098 61 inc ushort                    | inc ushort
+40 | 01099 40 push_c 238                    | push_c &msgRecebida:mensagem
+ee | 01100 ee 
+24 | 01101 24 func 10                       | func qPut
+0a | 01102 0a 
+17 | 01103 17 popx                          | popx 
+2a | 01104 2a set_v ushort 241 ushort 131   | msgRecebida.target = progenitorLocal
+11 | 01105 11 
+f1 | 01106 f1 
+83 | 01107 83 
+2a | 01108 2a set_v ushort 251 ushort 129   | msgRecebida.origem = idLocal
+11 | 01109 11 
+fb | 01110 fb 
+81 | 01111 81 
+c0 | 01112 c0 set_c ubyte 238 3             | msgRecebida.type = 3
+ee | 01113 ee 
+03 | 01114 03 
+40 | 01115 40 push_c 238                    | push_c &msgRecebida:mensagem
+ee | 01116 ee 
+24 | 01117 24 func 10                       | func qPut
+0a | 01118 0a 
+17 | 01119 17 popx                          | popx 
+58 | 01120 58 outevt_c 6 0                  | emit LED0 len=1 const=0
+06 | 01121 06 
+00 | 01122 00 
+39 | 01123 39 exec 214                      | goto  214
+06 | 01124 .01 addr:1547
+0b | 01125 .4d 
+40 | 01126 40 push_c 1                      | push 1
+01 | 01127 01 
+90 | 01128 90 push_v ubyte 238                    | push msgRecebida.type [Optm:: push_c addr + deref]
+ee | 01129 ee 
+0f | 01130 0f eq                            | eq
+4f | 01131 4f ifelse 325 326                | ifelse True_325 False_326
+04 | 01132 .01 addr:1136
+70 | 01133 .45 
+05 | 01134 .01 addr:1328
+30 | 01135 .46 
+91 | 01136 91 push_v ushort 129             | push idLocal:ushort
+81 | 01137 81 
+91 | 01138 91 push_v ushort 243                    | push msgRecebida.destinatario [Optm:: push_c addr + deref]
+f3 | 01139 f3 
+0f | 01140 0f eq                            | eq
+4f | 01141 4f ifelse 262 263                | ifelse True_262 False_263
+04 | 01142 .01 addr:1146
+7a | 01143 .06 
+04 | 01144 .01 addr:1209
+b9 | 01145 .07 
+58 | 01146 58 outevt_c 6 1                  | emit LED0 len=1 const=1
+06 | 01147 06 
+01 | 01148 01 
+58 | 01149 58 outevt_c 7 1                  | emit LED1 len=1 const=1
+07 | 01150 07 
 01 | 01151 01 
-04 | 01152 04 
-39 | 01153 39 exec 214                      | goto  214
-04 | 01154 .00 addr:1215
-bf | 01155 .d6 
-40 | 01156 40 push_c 2                      | push 2
-02 | 01157 02 
-40 | 01158 40 push_c 10                     | push 10
-0a | 01159 0a 
-91 | 01160 91 push_v ushort 240                    | push msgRecebida.destinatario [Optm:: push_c addr + deref]
-f0 | 01161 f0 
-09 | 01162 09 div                           | div
-0f | 01163 0f eq                            | eq
-4f | 01164 4f ifelse 209 210                | ifelse True_209 False_210
-04 | 01165 .00 addr:1169
-91 | 01166 .d1 
-04 | 01167 .00 addr:1180
-9c | 01168 .d2 
-40 | 01169 40 push_c 17                     | push 17
-11 | 01170 11 
-91 | 01171 91 push_v ushort 240                    | push msgRecebida.destinatario [Optm:: push_c addr + deref]
-f0 | 01172 f0 
-05 | 01173 05 sub                           | sub
-a9 | 01174 a9 pop ushort 260                | pop index_roteamento
-01 | 01175 01 
-04 | 01176 04 
-39 | 01177 39 exec 211                      | goto  211
-04 | 01178 .00 addr:1215
-bf | 01179 .d6 
-40 | 01180 40 push_c 3                      | push 3
-03 | 01181 03 
-40 | 01182 40 push_c 10                     | push 10
-0a | 01183 0a 
-91 | 01184 91 push_v ushort 240                    | push msgRecebida.destinatario [Optm:: push_c addr + deref]
-f0 | 01185 f0 
-09 | 01186 09 div                           | div
-0f | 01187 0f eq                            | eq
-4f | 01188 4f ifelse 206 207                | ifelse True_206 False_207
-04 | 01189 .00 addr:1193
-a9 | 01190 .ce 
-04 | 01191 .00 addr:1204
-b4 | 01192 .cf 
-40 | 01193 40 push_c 23                     | push 23
-17 | 01194 17 
-91 | 01195 91 push_v ushort 240                    | push msgRecebida.destinatario [Optm:: push_c addr + deref]
-f0 | 01196 f0 
-05 | 01197 05 sub                           | sub
-a9 | 01198 a9 pop ushort 260                | pop index_roteamento
-01 | 01199 01 
-04 | 01200 04 
-39 | 01201 39 exec 208                      | goto  208
-04 | 01202 .00 addr:1215
-bf | 01203 .d6 
-40 | 01204 40 push_c 29                     | push 29
-1d | 01205 1d 
-91 | 01206 91 push_v ushort 240                    | push msgRecebida.destinatario [Optm:: push_c addr + deref]
-f0 | 01207 f0 
-05 | 01208 05 sub                           | sub
-a9 | 01209 a9 pop ushort 260                | pop index_roteamento
-01 | 01210 01 
-04 | 01211 04 
-39 | 01212 39 exec 208                      | goto  208
-04 | 01213 .00 addr:1215
-bf | 01214 .d6 
-32 | 01215 32 pusharr_v ushort 136 ushort 260 16  | pusharr_v &tabela_roteamento[index_roteamento]
-19 | 01216 19 
-88 | 01217 88 
-01 | 01218 01 
-04 | 01219 04 
-10 | 01220 10 
-71 | 01221 71 deref ushort                  | deref ushort
-40 | 01222 40 push_c 238                    | push_c &msgRecebida.target:ushort
-ee | 01223 ee 
-69 | 01224 69 set_e ushort                  | set (ushort)*(pop1) = pop2
-2a | 01225 2a set_v ushort 236 ushort 117   | msgRecebida.source = idLocal
-11 | 01226 11 
-ec | 01227 ec 
-75 | 01228 75 
-40 | 01229 40 push_c 235                    | push_c &msgRecebida:mensagem
-eb | 01230 eb 
-24 | 01231 24 func 10                       | func qPut
-0a | 01232 0a 
-17 | 01233 17 popx                          | popx 
-58 | 01234 58 outevt_c 7 0                  | emit LED1 len=1 const=0
-07 | 01235 07 
-00 | 01236 00 
-39 | 01237 39 exec 223                      | goto  223
-03 | 01238 .00 addr:941
-ad | 01239 .95 
-40 | 01240 40 push_c 2                      | push 2
-02 | 01241 02 
-90 | 01242 90 push_v ubyte 235                    | push msgRecebida.type [Optm:: push_c addr + deref]
-eb | 01243 eb 
-0f | 01244 0f eq                            | eq
-4f | 01245 4f ifelse 282 283                | ifelse True_282 False_283
-04 | 01246 .01 addr:1250
-e2 | 01247 .1a 
-05 | 01248 .01 addr:1315
-23 | 01249 .1b 
-91 | 01250 91 push_v ushort 117             | push idLocal:ushort
-75 | 01251 75 
-91 | 01252 91 push_v ushort 240                    | push msgRecebida.destinatario [Optm:: push_c addr + deref]
-f0 | 01253 f0 
-0f | 01254 0f eq                            | eq
-4f | 01255 4f ifelse 247 248                | ifelse True_247 False_248
-04 | 01256 .00 addr:1260
-ec | 01257 .f7 
-05 | 01258 .00 addr:1289
-09 | 01259 .f8 
-58 | 01260 58 outevt_c 6 1                  | emit LED0 len=1 const=1
-06 | 01261 06 
-01 | 01262 01 
-58 | 01263 58 outevt_c 7 1                  | emit LED1 len=1 const=1
-07 | 01264 07 
-01 | 01265 01 
-58 | 01266 58 outevt_c 8 1                  | emit LED2 len=1 const=1
-08 | 01267 08 
-01 | 01268 01 
-29 | 01269 29 clken_c 8 6000 233            | clock enable Awake_6000_233 6000msec
-03 | 01270 03 
-08 | 01271 08 
-17 | 01272 17 
-70 | 01273 70 
-04 | 01274 .00 addr:1277
-fd | 01275 .e9 
-01 | 01276 01 end                           | end
-58 | 01277 58 outevt_c 6 0                  | emit LED0 len=1 const=0
-06 | 01278 06 
-00 | 01279 00 
-58 | 01280 58 outevt_c 7 0                  | emit LED1 len=1 const=0
-07 | 01281 07 
-00 | 01282 00 
-58 | 01283 58 outevt_c 8 0                  | emit LED2 len=1 const=0
-08 | 01284 08 
-00 | 01285 00 
-39 | 01286 39 exec 249                      | goto  249
-03 | 01287 .00 addr:941
-ad | 01288 .95 
-58 | 01289 58 outevt_c 8 1                  | emit LED2 len=1 const=1
-08 | 01290 08 
+58 | 01152 58 outevt_c 8 1                  | emit LED2 len=1 const=1
+08 | 01153 08 
+01 | 01154 01 
+29 | 01155 29 clken_c 7 1000 224            | clock enable Awake_1000_224 1000msec
+03 | 01156 03 
+07 | 01157 07 
+03 | 01158 03 
+e8 | 01159 e8 
+04 | 01160 .00 addr:1163
+8b | 01161 .e0 
+01 | 01162 01 end                           | end
+c0 | 01163 c0 set_c ubyte 238 2             | msgRecebida.type = 2
+ee | 01164 ee 
+02 | 01165 02 
+c1 | 01166 c1 set_c ushort 243 11           | msgRecebida.destinatario = 11
+f3 | 01167 f3 
+0b | 01168 0b 
+40 | 01169 40 push_c 4                      | push 4
+04 | 01170 04 
+91 | 01171 91 push_v ushort 146                    | push_v ushort &temperaturas[3] [Optm:: push_c addr + deref]
+92 | 01172 92 
+91 | 01173 91 push_v ushort 144                    | push_v ushort &temperaturas[2] [Optm:: push_c addr + deref]
+90 | 01174 90 
+91 | 01175 91 push_v ushort 142                    | push_v ushort &temperaturas[1] [Optm:: push_c addr + deref]
+8e | 01176 8e 
+91 | 01177 91 push_v ushort 140                    | push_v ushort &temperaturas[0] [Optm:: push_c addr + deref]
+8c | 01178 8c 
+06 | 01179 06 add                           | add
+06 | 01180 06 add                           | add
+06 | 01181 06 add                           | add
+09 | 01182 09 div                           | div
+a1 | 01183 a1 pop ushort 245                | pop msgRecebida.temperatura
+f5 | 01184 f5 
+2a | 01185 2a set_v ushort 241 ushort 131   | msgRecebida.target = progenitorLocal
+11 | 01186 11 
+f1 | 01187 f1 
+83 | 01188 83 
+c0 | 01189 c0 set_c ubyte 253 0             | msgRecebida.direcao = 0
+fd | 01190 fd 
+00 | 01191 00 
+40 | 01192 40 push_c 238                    | push_c &msgRecebida:mensagem
+ee | 01193 ee 
+24 | 01194 24 func 10                       | func qPut
+0a | 01195 0a 
+17 | 01196 17 popx                          | popx 
+58 | 01197 58 outevt_c 6 0                  | emit LED0 len=1 const=0
+06 | 01198 06 
+00 | 01199 00 
+58 | 01200 58 outevt_c 7 0                  | emit LED1 len=1 const=0
+07 | 01201 07 
+00 | 01202 00 
+58 | 01203 58 outevt_c 8 0                  | emit LED2 len=1 const=0
+08 | 01204 08 
+00 | 01205 00 
+39 | 01206 39 exec 264                      | goto  264
+06 | 01207 .01 addr:1547
+0b | 01208 .4d 
+58 | 01209 58 outevt_c 8 1                  | emit LED2 len=1 const=1
+08 | 01210 08 
+01 | 01211 01 
+29 | 01212 29 clken_c 8 1000 239            | clock enable Awake_1000_239 1000msec
+03 | 01213 03 
+08 | 01214 08 
+03 | 01215 03 
+e8 | 01216 e8 
+04 | 01217 .00 addr:1220
+c4 | 01218 .ef 
+01 | 01219 01 end                           | end
+c9 | 01220 c9 set_c ushort 263 0            | index_roteamento = 0
+01 | 01221 01 
+07 | 01222 07 
+00 | 01223 00 
+40 | 01224 40 push_c 1                      | push 1
+01 | 01225 01 
+40 | 01226 40 push_c 10                     | push 10
+0a | 01227 0a 
+91 | 01228 91 push_v ushort 243                    | push msgRecebida.destinatario [Optm:: push_c addr + deref]
+f3 | 01229 f3 
+09 | 01230 09 div                           | div
+0f | 01231 0f eq                            | eq
+4f | 01232 4f ifelse 254 255                | ifelse True_254 False_255
+04 | 01233 .00 addr:1237
+d5 | 01234 .fe 
+04 | 01235 .00 addr:1248
+e0 | 01236 .ff 
+40 | 01237 40 push_c 11                     | push 11
+0b | 01238 0b 
+91 | 01239 91 push_v ushort 243                    | push msgRecebida.destinatario [Optm:: push_c addr + deref]
+f3 | 01240 f3 
+05 | 01241 05 sub                           | sub
+a9 | 01242 a9 pop ushort 263                | pop index_roteamento
+01 | 01243 01 
+07 | 01244 07 
+39 | 01245 39 exec 256                      | goto  256
+05 | 01246 .01 addr:1307
+1b | 01247 .00 
+40 | 01248 40 push_c 2                      | push 2
+02 | 01249 02 
+40 | 01250 40 push_c 10                     | push 10
+0a | 01251 0a 
+91 | 01252 91 push_v ushort 243                    | push msgRecebida.destinatario [Optm:: push_c addr + deref]
+f3 | 01253 f3 
+09 | 01254 09 div                           | div
+0f | 01255 0f eq                            | eq
+4f | 01256 4f ifelse 251 252                | ifelse True_251 False_252
+04 | 01257 .00 addr:1261
+ed | 01258 .fb 
+04 | 01259 .00 addr:1272
+f8 | 01260 .fc 
+40 | 01261 40 push_c 17                     | push 17
+11 | 01262 11 
+91 | 01263 91 push_v ushort 243                    | push msgRecebida.destinatario [Optm:: push_c addr + deref]
+f3 | 01264 f3 
+05 | 01265 05 sub                           | sub
+a9 | 01266 a9 pop ushort 263                | pop index_roteamento
+01 | 01267 01 
+07 | 01268 07 
+39 | 01269 39 exec 253                      | goto  253
+05 | 01270 .01 addr:1307
+1b | 01271 .00 
+40 | 01272 40 push_c 3                      | push 3
+03 | 01273 03 
+40 | 01274 40 push_c 10                     | push 10
+0a | 01275 0a 
+91 | 01276 91 push_v ushort 243                    | push msgRecebida.destinatario [Optm:: push_c addr + deref]
+f3 | 01277 f3 
+09 | 01278 09 div                           | div
+0f | 01279 0f eq                            | eq
+4f | 01280 4f ifelse 248 249                | ifelse True_248 False_249
+05 | 01281 .00 addr:1285
+05 | 01282 .f8 
+05 | 01283 .00 addr:1296
+10 | 01284 .f9 
+40 | 01285 40 push_c 23                     | push 23
+17 | 01286 17 
+91 | 01287 91 push_v ushort 243                    | push msgRecebida.destinatario [Optm:: push_c addr + deref]
+f3 | 01288 f3 
+05 | 01289 05 sub                           | sub
+a9 | 01290 a9 pop ushort 263                | pop index_roteamento
 01 | 01291 01 
-29 | 01292 29 clken_c 9 1000 242            | clock enable Awake_1000_242 1000msec
-03 | 01293 03 
-09 | 01294 09 
-03 | 01295 03 
-e8 | 01296 e8 
-05 | 01297 .00 addr:1300
-14 | 01298 .f2 
-01 | 01299 01 end                           | end
-2a | 01300 2a set_v ushort 238 ushort 119   | msgRecebida.target = progenitorLocal
-11 | 01301 11 
-ee | 01302 ee 
-77 | 01303 77 
-40 | 01304 40 push_c 235                    | push_c &msgRecebida:mensagem
-eb | 01305 eb 
-24 | 01306 24 func 10                       | func qPut
-0a | 01307 0a 
-17 | 01308 17 popx                          | popx 
-58 | 01309 58 outevt_c 8 0                  | emit LED2 len=1 const=0
-08 | 01310 08 
-00 | 01311 00 
-39 | 01312 39 exec 249                      | goto  249
-03 | 01313 .00 addr:941
-ad | 01314 .95 
-40 | 01315 40 push_c 3                      | push 3
-03 | 01316 03 
-90 | 01317 90 push_v ubyte 235                    | push msgRecebida.type [Optm:: push_c addr + deref]
-eb | 01318 eb 
-0f | 01319 0f eq                            | eq
-4f | 01320 4f ifelse 280 281                | ifelse True_280 EndIf_281
-05 | 01321 .01 addr:1325
-2d | 01322 .18 
-03 | 01323 .00 addr:941
-ad | 01324 .95 
-58 | 01325 58 outevt_c 7 1                  | emit LED1 len=1 const=1
-07 | 01326 07 
-01 | 01327 01 
-29 | 01328 29 clken_c 10 1000 253           | clock enable Awake_1000_253 1000msec
-03 | 01329 03 
-0a | 01330 0a 
-03 | 01331 03 
-e8 | 01332 e8 
-05 | 01333 .00 addr:1336
-38 | 01334 .fd 
-01 | 01335 01 end                           | end
-c9 | 01336 c9 set_c ushort 260 0            | index_roteamento = 0
-01 | 01337 01 
-04 | 01338 04 
-00 | 01339 00 
-40 | 01340 40 push_c 1                      | push 1
-01 | 01341 01 
-40 | 01342 40 push_c 10                     | push 10
-0a | 01343 0a 
-91 | 01344 91 push_v ushort 248                    | push msgRecebida.origem [Optm:: push_c addr + deref]
-f8 | 01345 f8 
-09 | 01346 09 div                           | div
-0f | 01347 0f eq                            | eq
-4f | 01348 4f ifelse 268 269                | ifelse True_268 False_269
-05 | 01349 .01 addr:1353
-49 | 01350 .0c 
-05 | 01351 .01 addr:1364
-54 | 01352 .0d 
-40 | 01353 40 push_c 11                     | push 11
-0b | 01354 0b 
-91 | 01355 91 push_v ushort 248                    | push msgRecebida.origem [Optm:: push_c addr + deref]
-f8 | 01356 f8 
-05 | 01357 05 sub                           | sub
-a9 | 01358 a9 pop ushort 260                | pop index_roteamento
-01 | 01359 01 
-04 | 01360 04 
-39 | 01361 39 exec 270                      | goto  270
-05 | 01362 .01 addr:1423
-8f | 01363 .0e 
-40 | 01364 40 push_c 2                      | push 2
-02 | 01365 02 
-40 | 01366 40 push_c 10                     | push 10
-0a | 01367 0a 
-91 | 01368 91 push_v ushort 248                    | push msgRecebida.origem [Optm:: push_c addr + deref]
-f8 | 01369 f8 
-09 | 01370 09 div                           | div
-0f | 01371 0f eq                            | eq
-4f | 01372 4f ifelse 265 266                | ifelse True_265 False_266
-05 | 01373 .01 addr:1377
-61 | 01374 .09 
-05 | 01375 .01 addr:1388
-6c | 01376 .0a 
-40 | 01377 40 push_c 17                     | push 17
-11 | 01378 11 
-91 | 01379 91 push_v ushort 248                    | push msgRecebida.origem [Optm:: push_c addr + deref]
-f8 | 01380 f8 
-05 | 01381 05 sub                           | sub
-a9 | 01382 a9 pop ushort 260                | pop index_roteamento
-01 | 01383 01 
-04 | 01384 04 
-39 | 01385 39 exec 267                      | goto  267
-05 | 01386 .01 addr:1423
-8f | 01387 .0e 
-40 | 01388 40 push_c 3                      | push 3
-03 | 01389 03 
-40 | 01390 40 push_c 10                     | push 10
-0a | 01391 0a 
-91 | 01392 91 push_v ushort 248                    | push msgRecebida.origem [Optm:: push_c addr + deref]
-f8 | 01393 f8 
-09 | 01394 09 div                           | div
-0f | 01395 0f eq                            | eq
-4f | 01396 4f ifelse 262 263                | ifelse True_262 False_263
-05 | 01397 .01 addr:1401
-79 | 01398 .06 
-05 | 01399 .01 addr:1412
-84 | 01400 .07 
-40 | 01401 40 push_c 23                     | push 23
-17 | 01402 17 
-91 | 01403 91 push_v ushort 248                    | push msgRecebida.origem [Optm:: push_c addr + deref]
-f8 | 01404 f8 
-05 | 01405 05 sub                           | sub
-a9 | 01406 a9 pop ushort 260                | pop index_roteamento
-01 | 01407 01 
-04 | 01408 04 
-39 | 01409 39 exec 264                      | goto  264
-05 | 01410 .01 addr:1423
-8f | 01411 .0e 
-40 | 01412 40 push_c 29                     | push 29
-1d | 01413 1d 
-91 | 01414 91 push_v ushort 248                    | push msgRecebida.origem [Optm:: push_c addr + deref]
-f8 | 01415 f8 
-05 | 01416 05 sub                           | sub
-a9 | 01417 a9 pop ushort 260                | pop index_roteamento
-01 | 01418 01 
-04 | 01419 04 
-39 | 01420 39 exec 264                      | goto  264
-05 | 01421 .01 addr:1423
-8f | 01422 .0e 
-2c | 01423 2c setarr_vv ushort 136 ushort 260 16 ushort 236  | tabela_roteamento[index_roteamento] = msgRecebida.source
-19 | 01424 19 
+07 | 01292 07 
+39 | 01293 39 exec 250                      | goto  250
+05 | 01294 .01 addr:1307
+1b | 01295 .00 
+40 | 01296 40 push_c 29                     | push 29
+1d | 01297 1d 
+91 | 01298 91 push_v ushort 243                    | push msgRecebida.destinatario [Optm:: push_c addr + deref]
+f3 | 01299 f3 
+05 | 01300 05 sub                           | sub
+a9 | 01301 a9 pop ushort 263                | pop index_roteamento
+01 | 01302 01 
+07 | 01303 07 
+39 | 01304 39 exec 250                      | goto  250
+05 | 01305 .01 addr:1307
+1b | 01306 .00 
+32 | 01307 32 pusharr_v ushort 148 ushort 263 16  | pusharr_v &tabela_roteamento[index_roteamento]
+19 | 01308 19 
+94 | 01309 94 
+01 | 01310 01 
+07 | 01311 07 
+10 | 01312 10 
+71 | 01313 71 deref ushort                  | deref ushort
+40 | 01314 40 push_c 241                    | push_c &msgRecebida.target:ushort
+f1 | 01315 f1 
+69 | 01316 69 set_e ushort                  | set (ushort)*(pop1) = pop2
+40 | 01317 40 push_c 238                    | push_c &msgRecebida:mensagem
+ee | 01318 ee 
+24 | 01319 24 func 10                       | func qPut
+0a | 01320 0a 
+17 | 01321 17 popx                          | popx 
+58 | 01322 58 outevt_c 8 0                  | emit LED2 len=1 const=0
+08 | 01323 08 
+00 | 01324 00 
+39 | 01325 39 exec 264                      | goto  264
+06 | 01326 .01 addr:1547
+0b | 01327 .4d 
+40 | 01328 40 push_c 2                      | push 2
+02 | 01329 02 
+90 | 01330 90 push_v ubyte 238                    | push msgRecebida.type [Optm:: push_c addr + deref]
+ee | 01331 ee 
+0f | 01332 0f eq                            | eq
+4f | 01333 4f ifelse 322 323                | ifelse True_322 False_323
+05 | 01334 .01 addr:1338
+3a | 01335 .42 
+05 | 01336 .01 addr:1403
+7b | 01337 .43 
+91 | 01338 91 push_v ushort 129             | push idLocal:ushort
+81 | 01339 81 
+91 | 01340 91 push_v ushort 243                    | push msgRecebida.destinatario [Optm:: push_c addr + deref]
+f3 | 01341 f3 
+0f | 01342 0f eq                            | eq
+4f | 01343 4f ifelse 288 289                | ifelse True_288 False_289
+05 | 01344 .01 addr:1348
+44 | 01345 .20 
+05 | 01346 .01 addr:1377
+61 | 01347 .21 
+58 | 01348 58 outevt_c 6 1                  | emit LED0 len=1 const=1
+06 | 01349 06 
+01 | 01350 01 
+58 | 01351 58 outevt_c 7 1                  | emit LED1 len=1 const=1
+07 | 01352 07 
+01 | 01353 01 
+58 | 01354 58 outevt_c 8 1                  | emit LED2 len=1 const=1
+08 | 01355 08 
+01 | 01356 01 
+29 | 01357 29 clken_c 9 6000 274            | clock enable Awake_6000_274 6000msec
+03 | 01358 03 
+09 | 01359 09 
+17 | 01360 17 
+70 | 01361 70 
+05 | 01362 .01 addr:1365
+55 | 01363 .12 
+01 | 01364 01 end                           | end
+58 | 01365 58 outevt_c 6 0                  | emit LED0 len=1 const=0
+06 | 01366 06 
+00 | 01367 00 
+58 | 01368 58 outevt_c 7 0                  | emit LED1 len=1 const=0
+07 | 01369 07 
+00 | 01370 00 
+58 | 01371 58 outevt_c 8 0                  | emit LED2 len=1 const=0
+08 | 01372 08 
+00 | 01373 00 
+39 | 01374 39 exec 290                      | goto  290
+06 | 01375 .01 addr:1547
+0b | 01376 .4d 
+58 | 01377 58 outevt_c 8 1                  | emit LED2 len=1 const=1
+08 | 01378 08 
+01 | 01379 01 
+29 | 01380 29 clken_c 10 1000 283           | clock enable Awake_1000_283 1000msec
+03 | 01381 03 
+0a | 01382 0a 
+03 | 01383 03 
+e8 | 01384 e8 
+05 | 01385 .01 addr:1388
+6c | 01386 .1b 
+01 | 01387 01 end                           | end
+2a | 01388 2a set_v ushort 241 ushort 131   | msgRecebida.target = progenitorLocal
+11 | 01389 11 
+f1 | 01390 f1 
+83 | 01391 83 
+40 | 01392 40 push_c 238                    | push_c &msgRecebida:mensagem
+ee | 01393 ee 
+24 | 01394 24 func 10                       | func qPut
+0a | 01395 0a 
+17 | 01396 17 popx                          | popx 
+58 | 01397 58 outevt_c 8 0                  | emit LED2 len=1 const=0
+08 | 01398 08 
+00 | 01399 00 
+39 | 01400 39 exec 290                      | goto  290
+06 | 01401 .01 addr:1547
+0b | 01402 .4d 
+40 | 01403 40 push_c 3                      | push 3
+03 | 01404 03 
+90 | 01405 90 push_v ubyte 238                    | push msgRecebida.type [Optm:: push_c addr + deref]
+ee | 01406 ee 
+0f | 01407 0f eq                            | eq
+4f | 01408 4f ifelse 320 321                | ifelse True_320 EndIf_321
+05 | 01409 .01 addr:1413
+85 | 01410 .40 
+06 | 01411 .01 addr:1547
+0b | 01412 .4d 
+58 | 01413 58 outevt_c 7 1                  | emit LED1 len=1 const=1
+07 | 01414 07 
+01 | 01415 01 
+29 | 01416 29 clken_c 11 1000 294           | clock enable Awake_1000_294 1000msec
+03 | 01417 03 
+0b | 01418 0b 
+03 | 01419 03 
+e8 | 01420 e8 
+05 | 01421 .01 addr:1424
+90 | 01422 .26 
+01 | 01423 01 end                           | end
+c9 | 01424 c9 set_c ushort 263 0            | index_roteamento = 0
 01 | 01425 01 
-88 | 01426 88 
-01 | 01427 01 
-04 | 01428 04 
-10 | 01429 10 
-ec | 01430 ec 
-40 | 01431 40 push_c 11                     | push 11
-0b | 01432 0b 
-91 | 01433 91 push_v ushort 117             | push idLocal:ushort
-75 | 01434 75 
-10 | 01435 10 neq                           | neq
-4f | 01436 4f ifelse 276 277                | ifelse True_276 EndIf_277
+07 | 01426 07 
+00 | 01427 00 
+40 | 01428 40 push_c 1                      | push 1
+01 | 01429 01 
+40 | 01430 40 push_c 10                     | push 10
+0a | 01431 0a 
+91 | 01432 91 push_v ushort 251                    | push msgRecebida.origem [Optm:: push_c addr + deref]
+fb | 01433 fb 
+09 | 01434 09 div                           | div
+0f | 01435 0f eq                            | eq
+4f | 01436 4f ifelse 309 310                | ifelse True_309 False_310
 05 | 01437 .01 addr:1441
-a1 | 01438 .14 
-05 | 01439 .01 addr:1457
-b1 | 01440 .15 
-2a | 01441 2a set_v ushort 236 ushort 117   | msgRecebida.source = idLocal
-11 | 01442 11 
-ec | 01443 ec 
-75 | 01444 75 
-2a | 01445 2a set_v ushort 238 ushort 119   | msgRecebida.target = progenitorLocal
-11 | 01446 11 
-ee | 01447 ee 
-77 | 01448 77 
-40 | 01449 40 push_c 235                    | push_c &msgRecebida:mensagem
-eb | 01450 eb 
-24 | 01451 24 func 10                       | func qPut
-0a | 01452 0a 
-17 | 01453 17 popx                          | popx 
-39 | 01454 39 exec 277                      | goto  277
-05 | 01455 .01 addr:1457
-b1 | 01456 .15 
-58 | 01457 58 outevt_c 7 0                  | emit LED1 len=1 const=0
-07 | 01458 07 
-00 | 01459 00 
-39 | 01460 39 exec 281                      | goto  281
-03 | 01461 .00 addr:941
-ad | 01462 .95 
-48 | 01463 48 memclr 40 48                  | clear WClocks gates from 5 to 11
-28 | 01464 28 
-30 | 01465 30 
-48 | 01466 48 memclr 110 2                  | clear EXT gates for RECEIVE
-6e | 01467 6e 
-02 | 01468 02 
-01 | 01469 01 end                           | end
-d1 | 01470 d1 set_c ushort 114 294          | await Q_READY[0]
-72 | 01471 72 
-05 | 01472 .01 addr:1475
-c3 | 01473 .26 
-01 | 01474 01 end                           | end
-40 | 01475 40 push_c 0                      | push 0
-00 | 01476 00 
-24 | 01477 24 func 12                       | func qSize
-0c | 01478 0c 
-0f | 01479 0f eq                            | eq
-4f | 01480 4f ifelse 298 299                | ifelse True_298 EndIf_299
-05 | 01481 .01 addr:1485
-cd | 01482 .2a 
-05 | 01483 .01 addr:1493
-d5 | 01484 .2b 
-3d | 01485 3d tkins_z 1 10 297              | insert track Loop_out_297 tree 10
-8a | 01486 8a 
-05 | 01487 .01 addr:1516
-ec | 01488 .29 
-01 | 01489 01 end                           | end
-39 | 01490 39 exec 299                      | goto  299
-05 | 01491 .01 addr:1493
-d5 | 01492 .2b 
-41 | 01493 41 push_c 285                    | push_c &enviar:mensagem
-01 | 01494 01 
-1d | 01495 1d 
-24 | 01496 24 func 11                       | func qGet
-0b | 01497 0b 
-17 | 01498 17 popx                          | popx 
-b9 | 01499 b9 outevt_v 40 285               | emit SEND len=25 var=enviar
-28 | 01500 28 
-01 | 01501 01 
-1d | 01502 1d 
-d1 | 01503 d1 set_c ushort 106 304          | await SEND_DONE[0]
-6a | 01504 6a 
-05 | 01505 .01 addr:1508
-e4 | 01506 .30 
-01 | 01507 01 end                           | end
-29 | 01508 29 clken_c 11 1000 305           | clock enable Awake_1000_305 1000msec
-03 | 01509 03 
-0b | 01510 0b 
-03 | 01511 03 
-e8 | 01512 e8 
-05 | 01513 .01 addr:1475
-c3 | 01514 .27 
-01 | 01515 01 end                           | end
-48 | 01516 48 memclr 88 8                   | clear WClocks gates from 11 to 12
-58 | 01517 58 
-08 | 01518 08 
-48 | 01519 48 memclr 106 2                  | clear EXT gates for SEND_DONE
-6a | 01520 6a 
-02 | 01521 02 
-39 | 01522 39 exec 291                      | goto  291
-05 | 01523 .01 addr:1470
-be | 01524 .23 
-48 | 01525 48 memclr 88 8                   | clear WClocks gates from 11 to 12
-58 | 01526 58 
-08 | 01527 08 
-48 | 01528 48 memclr 106 2                  | clear EXT gates for SEND_DONE
-6a | 01529 6a 
-02 | 01530 02 
-48 | 01531 48 memclr 114 2                  | clear EXT gates for Q_READY
-72 | 01532 72 
-02 | 01533 02 
-01 | 01534 01 end                           | end
-48 | 01535 48 memclr 0 96                   | clear WClocks gates from 0 to 12
-00 | 01536 00 
-60 | 01537 60 
-01 | 01538 01 end                           | end
+a1 | 01438 .35 
+05 | 01439 .01 addr:1452
+ac | 01440 .36 
+40 | 01441 40 push_c 11                     | push 11
+0b | 01442 0b 
+91 | 01443 91 push_v ushort 251                    | push msgRecebida.origem [Optm:: push_c addr + deref]
+fb | 01444 fb 
+05 | 01445 05 sub                           | sub
+a9 | 01446 a9 pop ushort 263                | pop index_roteamento
+01 | 01447 01 
+07 | 01448 07 
+39 | 01449 39 exec 311                      | goto  311
+05 | 01450 .01 addr:1511
+e7 | 01451 .37 
+40 | 01452 40 push_c 2                      | push 2
+02 | 01453 02 
+40 | 01454 40 push_c 10                     | push 10
+0a | 01455 0a 
+91 | 01456 91 push_v ushort 251                    | push msgRecebida.origem [Optm:: push_c addr + deref]
+fb | 01457 fb 
+09 | 01458 09 div                           | div
+0f | 01459 0f eq                            | eq
+4f | 01460 4f ifelse 306 307                | ifelse True_306 False_307
+05 | 01461 .01 addr:1465
+b9 | 01462 .32 
+05 | 01463 .01 addr:1476
+c4 | 01464 .33 
+40 | 01465 40 push_c 17                     | push 17
+11 | 01466 11 
+91 | 01467 91 push_v ushort 251                    | push msgRecebida.origem [Optm:: push_c addr + deref]
+fb | 01468 fb 
+05 | 01469 05 sub                           | sub
+a9 | 01470 a9 pop ushort 263                | pop index_roteamento
+01 | 01471 01 
+07 | 01472 07 
+39 | 01473 39 exec 308                      | goto  308
+05 | 01474 .01 addr:1511
+e7 | 01475 .37 
+40 | 01476 40 push_c 3                      | push 3
+03 | 01477 03 
+40 | 01478 40 push_c 10                     | push 10
+0a | 01479 0a 
+91 | 01480 91 push_v ushort 251                    | push msgRecebida.origem [Optm:: push_c addr + deref]
+fb | 01481 fb 
+09 | 01482 09 div                           | div
+0f | 01483 0f eq                            | eq
+4f | 01484 4f ifelse 303 304                | ifelse True_303 False_304
+05 | 01485 .01 addr:1489
+d1 | 01486 .2f 
+05 | 01487 .01 addr:1500
+dc | 01488 .30 
+40 | 01489 40 push_c 23                     | push 23
+17 | 01490 17 
+91 | 01491 91 push_v ushort 251                    | push msgRecebida.origem [Optm:: push_c addr + deref]
+fb | 01492 fb 
+05 | 01493 05 sub                           | sub
+a9 | 01494 a9 pop ushort 263                | pop index_roteamento
+01 | 01495 01 
+07 | 01496 07 
+39 | 01497 39 exec 305                      | goto  305
+05 | 01498 .01 addr:1511
+e7 | 01499 .37 
+40 | 01500 40 push_c 29                     | push 29
+1d | 01501 1d 
+91 | 01502 91 push_v ushort 251                    | push msgRecebida.origem [Optm:: push_c addr + deref]
+fb | 01503 fb 
+05 | 01504 05 sub                           | sub
+a9 | 01505 a9 pop ushort 263                | pop index_roteamento
+01 | 01506 01 
+07 | 01507 07 
+39 | 01508 39 exec 305                      | goto  305
+05 | 01509 .01 addr:1511
+e7 | 01510 .37 
+2c | 01511 2c setarr_vv ushort 148 ushort 263 16 ushort 239  | tabela_roteamento[index_roteamento] = msgRecebida.source
+19 | 01512 19 
+01 | 01513 01 
+94 | 01514 94 
+01 | 01515 01 
+07 | 01516 07 
+10 | 01517 10 
+ef | 01518 ef 
+40 | 01519 40 push_c 11                     | push 11
+0b | 01520 0b 
+91 | 01521 91 push_v ushort 129             | push idLocal:ushort
+81 | 01522 81 
+10 | 01523 10 neq                           | neq
+4f | 01524 4f ifelse 316 317                | ifelse True_316 EndIf_317
+05 | 01525 .01 addr:1529
+f9 | 01526 .3c 
+06 | 01527 .01 addr:1541
+05 | 01528 .3d 
+2a | 01529 2a set_v ushort 241 ushort 131   | msgRecebida.target = progenitorLocal
+11 | 01530 11 
+f1 | 01531 f1 
+83 | 01532 83 
+40 | 01533 40 push_c 238                    | push_c &msgRecebida:mensagem
+ee | 01534 ee 
+24 | 01535 24 func 10                       | func qPut
+0a | 01536 0a 
+17 | 01537 17 popx                          | popx 
+39 | 01538 39 exec 317                      | goto  317
+06 | 01539 .01 addr:1541
+05 | 01540 .3d 
+58 | 01541 58 outevt_c 7 0                  | emit LED1 len=1 const=0
+07 | 01542 07 
+00 | 01543 00 
+39 | 01544 39 exec 321                      | goto  321
+06 | 01545 .01 addr:1547
+0b | 01546 .4d 
+29 | 01547 29 clken_c 12 100 334            | clock enable Awake_100_334 100msec
+01 | 01548 01 
+0c | 01549 0c 
+64 | 01550 64 
+03 | 01551 .00 addr:914
+92 | 01552 .a1 
+01 | 01553 01 end                           | end
+48 | 01554 48 memclr 40 64                  | clear WClocks gates from 5 to 13
+28 | 01555 28 
+40 | 01556 40 
+48 | 01557 48 memclr 114 2                  | clear EXT gates for SEND_DONE
+72 | 01558 72 
+02 | 01559 02 
+48 | 01560 48 memclr 118 2                  | clear EXT gates for SEND_DONE_ACK
+76 | 01561 76 
+02 | 01562 02 
+39 | 01563 39 exec 157                      | goto  157
+03 | 01564 .00 addr:909
+8d | 01565 .9d 
+48 | 01566 48 memclr 40 64                  | clear WClocks gates from 5 to 13
+28 | 01567 28 
+40 | 01568 40 
+48 | 01569 48 memclr 114 2                  | clear EXT gates for SEND_DONE
+72 | 01570 72 
+02 | 01571 02 
+48 | 01572 48 memclr 118 2                  | clear EXT gates for SEND_DONE_ACK
+76 | 01573 76 
+02 | 01574 02 
+48 | 01575 48 memclr 126 2                  | clear EXT gates for Q_READY
+7e | 01576 7e 
+02 | 01577 02 
+01 | 01578 01 end                           | end
+48 | 01579 48 memclr 0 104                  | clear WClocks gates from 0 to 13
+00 | 01580 00 
+68 | 01581 68 
+01 | 01582 01 end                           | end
