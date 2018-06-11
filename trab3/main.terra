@@ -13,6 +13,8 @@
 #define NO_RAIZ 11						// Identificador do nó raiz
 #define NO_DESTINATARIO 41				// Identificador do nó destinatario dos pedidos de temperatura
 #define NO_DESTINATARIO_ALTERNATIVO 23	// Identificador do nó destinatario alternativo para pedidos de temperatura
+#define N_LINHAS 4						// Precisa ser igual ao numero de linhas declarado no inicio da simulação
+#define N_COLUNAS 4						// Precisa ser igual ao numero de colunas declarado no inicio da simulação
 
 /*
 ** Tipo mensagem que abrange todas as funcionalidades da aplicação.
@@ -36,12 +38,12 @@ var ushort tempLocal = 0;				// Usado para receber temperaturas requisitadas
 var ushort voltLocal = 0;				// Usado para receber voltagens requisitadas
 var ubyte temperatura_idx = 0;			// Indice da temperatura mais antiga do vetor de temperaturas
 var ushort[4] temperaturas;				// Vetor para armazenar as 4 ultimas temperaturas registradas para o calculo da media quando for pedido
-var ushort[16] tabela_roteamento;		// Tabela de roteamento otimizada para redes de nós 4x4, não sendo compativel com outros tamanhos
+var ushort[16] tabela_roteamento;		// Precisa ser igual ao N_LINHASxN_COLUNAS definidos acima, não sendo compativel com tamanhos menores
 
-loop i,3 do
+loop i,4 do
 	temperaturas[i] = 0;
 end
-loop i,15 do
+loop i,(N_LINHAS*N_COLUNAS) do
 	tabela_roteamento[i] = 0;
 end
 
@@ -131,14 +133,11 @@ with
 						
 						// Calculo do indice do nó destinatario, para adicionar ao target o nó intermediario mais rapido para chegar ao nó destino
 						var ushort index_roteamento = 0;
-						if msgRaiz.destinatario/10 == 1 then
-							index_roteamento = msgRaiz.destinatario - 11;
-						else/if msgRaiz.destinatario/10 == 2 then
-							index_roteamento = msgRaiz.destinatario - 17;
-						else/if msgRaiz.destinatario/10 == 3 then
-							index_roteamento = msgRaiz.destinatario - 23;
-						else
-							index_roteamento = msgRaiz.destinatario - 29;
+						loop i,(N_COLUNAS) do
+							if msgRaiz.destinatario/10 == (i+1) then
+								index_roteamento = msgRaiz.destinatario - (11 + i*(10-N_LINHAS));
+								break;
+							end
 						end
 						msgRaiz.target = tabela_roteamento[index_roteamento];
 						// Caso o nó não tenha um nó intermediario na tabela de roteamento, o envio será feito em broadcast
@@ -253,14 +252,11 @@ with
 						await 1s;
 				
 						var ushort index_roteamento = 0;
-						if msgRecebida.destinatario/10 == 1 then
-							index_roteamento = msgRecebida.destinatario - 11;
-						else/if msgRecebida.destinatario/10 == 2 then
-							index_roteamento = msgRecebida.destinatario - 17;
-						else/if msgRecebida.destinatario/10 == 3 then
-							index_roteamento = msgRecebida.destinatario - 23;
-						else
-							index_roteamento = msgRecebida.destinatario - 29;
+						loop i,(N_COLUNAS) do
+							if msgRecebida.destinatario/10 == (i+1) then
+								index_roteamento = msgRecebida.destinatario - (11 + i*(10-N_LINHAS));
+								break;
+							end
 						end
 						msgRecebida.target = tabela_roteamento[index_roteamento];
 						qPut(msgRecebida);
@@ -301,14 +297,11 @@ with
 					await 1s;
 			
 					var ushort index_roteamento = 0;
-					if msgRecebida.origem/10 == 1 then
-						index_roteamento = msgRecebida.origem - 11;
-					else/if msgRecebida.origem/10 == 2 then
-						index_roteamento = msgRecebida.origem - 17;
-					else/if msgRecebida.origem/10 == 3 then
-						index_roteamento = msgRecebida.origem - 23;
-					else
-						index_roteamento = msgRecebida.origem - 29;
+					loop i,(N_COLUNAS) do
+						if msgRecebida.origem/10 == (i+1) then
+							index_roteamento = msgRecebida.origem - (11 + i*(10-N_LINHAS));
+							break;
+						end
 					end
 					tabela_roteamento[index_roteamento] = msgRecebida.source;
 					if idLocal != NO_RAIZ then
