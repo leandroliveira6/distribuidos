@@ -1,13 +1,19 @@
-local mqtt = require("mqtt_library")
+﻿local mqtt = require("mqtt_library")
 local cliente_mqtt = nil
-local usuario = "lelele"
+local usuario = arg[2]
 local personagem = nil
 local random = nil
 local outros_usuarios = {}
+local outros_usuarios_situacao = {}
 local tamanhox, tamanhoy = 20, 30
 local disparos = {}
 local disparos_danosos = {}
+local quem_disparou = {}
 local quantidade_disparos = 0
+local dano_por_disparo = 10
+local pontos = 0
+local ultima_pontuacao = ""
+local ultimo_dano = ""
 
 
 
@@ -18,12 +24,14 @@ local criarPersonagem = function(corCustomizada)
   -- Atributos
   local posx, posy = nil, nil
   local cor = corCustomizada
+  local vida = 10
+  local vivo = true
   
   local iniciar = function()
     local width, height = love.graphics.getDimensions()
     posx, posy = math.random(width-tamanhox), math.random(height-tamanhoy)
     if not corCustomizada then
-      cor = {0, 0.4, 1}
+      cor = {0, 1, 1}
     end
   end
   iniciar()
@@ -51,10 +59,14 @@ local criarPersonagem = function(corCustomizada)
     end,
     draw = function()
       love.graphics.setColor(cor)
+      love.graphics.print(ultimo_dano, posx, posy-20)
       love.graphics.rectangle("fill", posx, posy, tamanhox, tamanhoy)
     end,
     keypressed = function(key)
       local newx, newy = nil, nil
+      if not vivo then
+        return
+      end
       if love.keyboard.isDown("w") then
         newx = posx
         newy = posy - 10
@@ -77,7 +89,14 @@ local criarPersonagem = function(corCustomizada)
       return posx, posy
     end,
     verificarDano = function(x, y)
-      if x+4 > posx and x-4 < posx+tamanhox and y+4 > posy and y-4 < posy+tamanhoy then
+      if not vivo then
+        return false
+      elseif x+4 > posx and x-4 < posx+tamanhox and y+4 > posy and y-4 < posy+tamanhoy then
+        vida = vida - dano_por_disparo
+        if vida <= 0 then
+          cor = {0, 0.4, 0.4}
+          vivo = false
+        end
         return true
       end
       return false
@@ -85,7 +104,7 @@ local criarPersonagem = function(corCustomizada)
   }
 end
 
-local criarDisparo = function(id, x, y, mouseX, mouseY, vX, vY, corCustomizada, terceiros)
+local criarDisparo = function(id, x, y, mouseX, mouseY, vX, vY, corCustomizada, terceiros, atirador)
   local posx = x
   local posy = y
   local velocidadeX, velocidadeY = vX, vY
@@ -95,6 +114,7 @@ local criarDisparo = function(id, x, y, mouseX, mouseY, vX, vY, corCustomizada, 
   local identificador = id
   local cor = corCustomizada
   local de_terceiros = false
+  local criador = atirador
   
   local validarMovimento = function(x, y)
     local width, height = love.graphics.getDimensions()
@@ -156,6 +176,9 @@ local criarDisparo = function(id, x, y, mouseX, mouseY, vX, vY, corCustomizada, 
     end,
     obterIdentificador = function()
       return identificador
+    end,
+    obterCriador = function()
+      return criador
     end
   }
 end
@@ -171,16 +194,22 @@ local criarClienteMqtt = function()
     local infos = {}
     for info in string.gmatch(message,"([^;]+)") do
         table.insert(infos, info)
-        print(info)
     end
     if infos[1] ~= usuario then
       if topic == "trab4_moviment" then
         outros_usuarios[infos[1]] = {infos[2], infos[3]}
+        outros_usuarios_situacao[infos[1]] = true -- true para vivo
       elseif topic == "trab4_actions" then
-        disparo = criarDisparo(infos[2], infos[3], infos[4], nil, nil, infos[5], infos[6], {1, 0.8, 0}, true)
+        disparo = criarDisparo(infos[2], infos[3], infos[4], nil, nil, infos[5], infos[6], {1, 0.8, 0}, true, infos[1])
         table.insert(disparos, disparo)
+        
       elseif topic == "trab4_finishedactions" then
         table.insert(disparos_danosos, infos[2])
+        outros_usuarios_situacao[infos[1]] = false -- false para morto
+        if infos[3] == usuario then
+          pontos = pontos + 1
+          ultima_pontuacao = os.date("%H:%M:%S")
+        end
       end
     end
   end
@@ -223,14 +252,16 @@ function love.update(dt)
       remover = true
     end
     posx, posy = disparos[i].obterPosicao()
-    if personagem.verificarDano(posx, posy) then
-      cliente_mqtt:publish("trab4_finishedactions", usuario .. ";" .. disparos[i].obterIdentificador())
+    if disparos[i].deTerceiros() and personagem.verificarDano(posx, posy) then
+      ultimo_dano = os.date("%H:%M:%S")
+      cliente_mqtt:publish("trab4_finishedactions", usuario .. ";" .. disparos[i].obterIdentificador() .. ";" .. disparos[i].obterCriador())
       remover = true
     end
     for j = #disparos_danosos,1,-1 do
       if disparos_danosos[j] == disparos[i].obterIdentificador() then
         table.remove(disparos_danosos, j)
         remover = true
+        break
       end
     end
     if remover then
@@ -242,15 +273,21 @@ end
 
 function love.draw()
   personagem.draw()
-  love.graphics.setColor(1, 0.2, 0)
   for k, v in pairs(outros_usuarios) do
+    if outros_usuarios_situacao[k] then
+      love.graphics.setColor(1, 1, 0)
+    else
+      love.graphics.setColor(0.4, 0.4, 0)
+    end
     love.graphics.print(k, v[1], v[2]-20)
     love.graphics.rectangle("fill", v[1], v[2], tamanhox, tamanhoy)
   end
-  love.graphics.setColor(1, 0.8, 0)
   for _, v in pairs(disparos) do
     v.draw()
   end
+  love.graphics.setColor(1, 1, 1)
+  love.graphics.print("Pontos: " .. pontos, 10, 10)
+  love.graphics.print("Ultima pontuação: " .. ultima_pontuacao, 10, 20)
 end
 
 function love.keypressed(key)
