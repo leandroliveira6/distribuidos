@@ -1,41 +1,45 @@
 ﻿local mqtt = require("mqtt_library")
-local cliente_mqtt = nil
-local usuario = arg[2]
-local personagem = nil
-local random = nil
-local outros_usuarios = {}
-local outros_usuarios_situacao = {}
-local tamanhox, tamanhoy = 20, 30
-local disparos = {}
-local disparos_danosos = {}
-local quem_disparou = {}
-local quantidade_disparos = 0
-local dano_por_disparo = 10
-local pontos = 0
-local ultima_pontuacao = ""
-local ultimo_dano = ""
+local cliente_mqtt = nil -- Contem o objeto mqtt
+local usuario = arg[2] -- Nome de usuario deve ser passado por parametro na execução do projeto
+local personagem = nil -- Tabela que contem a nave do usuario
+local outros_usuarios = {} -- A posicao dos demais usuarios conectados ao mqtt e chaveados pelo nome
+local outros_usuarios_situacao = {} -- A situação da vida dos usuarios conectados, tambem chaveado pelos nomes. São iniciados com true, mudado para false ao receber uma mensagem no topico trab4_finishedactions informando que o mesmo foi morto
+local tamanhox, tamanhoy = 20, 30 -- Tamanho do retangulo dos personagens
+local disparos = {} -- Lista de todos os disparos ativos, tais disparos são desativados ao sair da tela ou atingir algum usuario
+local disparos_danosos = {} -- Lista de todos os disparos que atingiram alguem. Usada para remoção do disparo da lista de disparos
+local quantidade_disparos = 0 -- Utilizado como parte do id do disparo, para fins de reconhecimento e remoção caso o mesmo atinja alguem
+local dano_por_disparo = 10 -- Como o proprio nome sugere, é o dano que o personagem leva por cada disparo que o atingiu
+local pontos = 0 -- Para cada disparo que tenha acertado alguem, um ponto é dado
+local fator_rgb = 1 -- Fator multiplicativo para os parametros rgb do setColor, pois dependendo da versão o padrão [0..255] não é empregado, mas sim [0..1]
 
 
 
 --[[
-  Funções responsaveis por configurar um personagem
-]]
+  Função responsavel por configurar um personagem e retorna uma tabela com todas as funções necessarias
+]]  
 local criarPersonagem = function(corCustomizada)
   -- Atributos
   local posx, posy = nil, nil
   local cor = corCustomizada
-  local vida = 10
-  local vivo = true
+  local vida = 20
   
+  -- Função para publicar no mqtt a posição do personagem
+  local publicarPosicao = function()
+    cliente_mqtt:publish("trab4_moviment", usuario .. ";" .. tostring(posx) .. ";" .. tostring(posy))
+  end
+  
+  -- Função que inicializa as variaveis locais do personagem, como a posição (randomica) e cor, publicando no mqtt no final
   local iniciar = function()
     local width, height = love.graphics.getDimensions()
     posx, posy = math.random(width-tamanhox), math.random(height-tamanhoy)
     if not corCustomizada then
-      cor = {0, 1, 1}
+      cor = {0, 1*fator_rgb, 1*fator_rgb}
     end
+    publicarPosicao()
   end
   iniciar()
   
+  -- Verifica se a proxima coordenada, passada nos parametros x e y, é valida, ou seja, está dentro da tela e não está em cima de alguem 
   local validarMovimento = function(x, y)
     if x and y then
       local width, height = love.graphics.getDimensions()
@@ -55,16 +59,13 @@ local criarPersonagem = function(corCustomizada)
   end
   
   return {
-    update = function()
-    end,
     draw = function()
       love.graphics.setColor(cor)
-      love.graphics.print(ultimo_dano, posx, posy-20)
       love.graphics.rectangle("fill", posx, posy, tamanhox, tamanhoy)
     end,
     keypressed = function(key)
       local newx, newy = nil, nil
-      if not vivo then
+      if vida <= 0 then
         return
       end
       if love.keyboard.isDown("w") then
@@ -80,27 +81,38 @@ local criarPersonagem = function(corCustomizada)
         newx = posx - 10
         newy = posy
       end
-      if validarMovimento(newx, newy) then
+      if validarMovimento(newx, newy) then -- Se o movimento for valido, é publicado no mqtt a nova coordenada para atualização nas outras instancias
         posx, posy = newx, newy
-        cliente_mqtt:publish("trab4_moviment", usuario .. ";" .. tostring(posx) .. ";" .. tostring(posy))
+        publicarPosicao()
       end
     end,
     obterPosicao = function()
       return posx, posy
     end,
-    verificarDano = function(x, y)
-      if not vivo then
+    verificarDano = function(disparo) -- Na iteração do update por todos os disparos para atualização das coordenadas, é verificado para cada um se o mesmo atingiu o personagem corrente, retornando true e publicando no mqtt caso tenha atingido
+      local x, y = disparo.obterPosicao()
+      if vida <= 0 then
         return false
       elseif x+4 > posx and x-4 < posx+tamanhox and y+4 > posy and y-4 < posy+tamanhoy then
         vida = vida - dano_por_disparo
         if vida <= 0 then
-          cor = {0, 0.4, 0.4}
-          vivo = false
+          cor = {0, 0.4*fator_rgb, 0.4*fator_rgb}
+          -- Publicação que faz com que a exibição das instancias mortas mude
+          cliente_mqtt:publish("trab4_finishedactions", usuario .. ";" .. disparo.obterIdentificador() .. ";" .. disparo.obterCriador() .. ";" .. "morto")
         end
+        -- Publicação para uso de quem efetuou o disparo que atingiu a instancia, para que o mesmo contabilize os pontos
+        cliente_mqtt:publish("trab4_finishedactions", usuario .. ";" .. disparo.obterIdentificador() .. ";" .. disparo.obterCriador() .. ";" .. "vivo")
         return true
       end
       return false
-    end
+    end,
+    verificarSituacao = function() -- Retorna verdadeiro se o personagem ainda vive
+      if vida <= 0 then
+        return false
+      end
+      return true
+    end,
+    publicarPosicao = publicarPosicao
   }
 end
 
@@ -113,8 +125,8 @@ local criarDisparo = function(id, x, y, mouseX, mouseY, vX, vY, corCustomizada, 
   local deslocamento = 8;
   local identificador = id
   local cor = corCustomizada
-  local de_terceiros = false
-  local criador = atirador
+  local de_terceiros = false -- Disparos que não são da instancia corrente são tratados iguais
+  local criador = atirador -- Para se atingir o personagem corrente o mesmo poder informar a quem atingiu
   
   local validarMovimento = function(x, y)
     local width, height = love.graphics.getDimensions()
@@ -122,10 +134,10 @@ local criarDisparo = function(id, x, y, mouseX, mouseY, vX, vY, corCustomizada, 
     if (x+diametro) < 0 or (x-diametro) > width or (y+diametro) < 0 or (y-tamanhoy) > height then
       return false
     end
-    return true -- retorna verdadeiro se com o movimento o objeto não sai da tela ou não atinge ninguem
+    return true -- retorna verdadeiro se com o movimento o objeto não sai da tela
   end
     
-  local iniciar = function()
+  local iniciar = function() -- Se houver mouseX e mouseY, significa que o disparo é local, criando assim uma instancia de disparo propria, sendo esta ignorada ao verificar colisões no personagem corrente. É publicado os dados de todos os disparos proprios, para que as demais instancias do jogo possa replica-lo
     if mouseX and mouseY then
       local angulo = math.abs(math.atan((posy-mouseY)/(mouseX-posx)))
       if mouseX > posx then
@@ -141,7 +153,7 @@ local criarDisparo = function(id, x, y, mouseX, mouseY, vX, vY, corCustomizada, 
       cliente_mqtt:publish("trab4_actions", usuario .. ";" .. identificador .. ";" .. tostring(posx) .. ";" .. tostring(posy) .. ";" .. tostring(velocidadeX) .. ";" .. tostring(velocidadeY))
     end
     if not corCustomizada then
-      cor = {0, 0.8, 1}
+      cor = {0, 0.8*fator_rgb, 1*fator_rgb}
     end
     if not de_terceiros then
       de_terceiros = terceiros
@@ -150,7 +162,7 @@ local criarDisparo = function(id, x, y, mouseX, mouseY, vX, vY, corCustomizada, 
   iniciar()
   
   return {
-    update = function()
+    update = function() -- Movimenta o disparo segundo as componentes da velocidade
       local newx, newy = posx+velocidadeX, posy+velocidadeY
       if validarMovimento(newx, newy) then
         posx, posy = newx, newy
@@ -196,19 +208,25 @@ local criarClienteMqtt = function()
         table.insert(infos, info)
     end
     if infos[1] ~= usuario then
-      if topic == "trab4_moviment" then
+      if topic == "trab4_moviment" and infos[2] and infos[3] then -- Topico que lista todas as posições das instancias do jogo. Ao receber mensagens nesse topico, é criada/atualizada a posição do personagem que se movimentou. Cada personagem possui sua propria chave na lista de outros usuarios e na situação dos outros usuarios, facilitando assim o acesso e manutenção da mesma 
+        print("Nova mensagem de movimento")
+        if not outros_usuarios[infos[1]] then
+          personagem.publicarPosicao()
+        end
         outros_usuarios[infos[1]] = {infos[2], infos[3]}
         outros_usuarios_situacao[infos[1]] = true -- true para vivo
-      elseif topic == "trab4_actions" then
-        disparo = criarDisparo(infos[2], infos[3], infos[4], nil, nil, infos[5], infos[6], {1, 0.8, 0}, true, infos[1])
+        
+      elseif topic == "trab4_actions" then -- Lista todos os disparos efetuados. Para fins de otimização, visto que não há necessidade de publicar toda a tragetoria do disparo já que ela é constante, as mensagens para esse topico só são enviadas uma vez, na criação do disparo. Todas as demais aplicações replica esse disparo localmente, o diferenciando dos proprios disparos, para que os mesmos computem localmente as movimentações
+        disparo = criarDisparo(infos[2], infos[3], infos[4], nil, nil, infos[5], infos[6], {1*fator_rgb, 0.8*fator_rgb, 0}, true, infos[1])
         table.insert(disparos, disparo)
         
-      elseif topic == "trab4_finishedactions" then
+      elseif topic == "trab4_finishedactions" then -- Lista todos os disparos que atingiram alguem. Para fins de pontuação, remoção do disparo da tela ou informar que algum dos jogadores foi morto
         table.insert(disparos_danosos, infos[2])
-        outros_usuarios_situacao[infos[1]] = false -- false para morto
         if infos[3] == usuario then
           pontos = pontos + 1
-          ultima_pontuacao = os.date("%H:%M:%S")
+        end
+        if infos[4] == "morto" then
+          outros_usuarios_situacao[infos[1]] = false -- false para morto
         end
       end
     end
@@ -236,25 +254,21 @@ end
 
 
 function love.load()
-  math.randomseed(os.time())
+  math.randomseed(os.time()) -- Necessario para que a randomização dos valores seja mais variada
   love.keyboard.setKeyRepeat(true)
   configurarClienteMqtt()
   personagem = criarPersonagem()
 end
 
 function love.update(dt)
-  personagem.update()
   cliente_mqtt:handler()
-  for i = #disparos,1,-1 do
-    local posx, posy, houve_dano, remover = nil, nil, nil, false
+  for i = #disparos,1,-1 do -- Itera sobre todos os disparos, verificando para cada um se o mesmo atingiu alguem ou saiu da tela, tendo assim que ser removido
+    local remover = false
     disparos[i].update()
     if not disparos[i].estaAtivo() then
       remover = true
     end
-    posx, posy = disparos[i].obterPosicao()
-    if disparos[i].deTerceiros() and personagem.verificarDano(posx, posy) then
-      ultimo_dano = os.date("%H:%M:%S")
-      cliente_mqtt:publish("trab4_finishedactions", usuario .. ";" .. disparos[i].obterIdentificador() .. ";" .. disparos[i].obterCriador())
+    if disparos[i].deTerceiros() and personagem.verificarDano(disparos[i]) then
       remover = true
     end
     for j = #disparos_danosos,1,-1 do
@@ -268,16 +282,15 @@ function love.update(dt)
       table.remove(disparos, i)
     end
   end
-  
 end
 
 function love.draw()
   personagem.draw()
   for k, v in pairs(outros_usuarios) do
-    if outros_usuarios_situacao[k] then
-      love.graphics.setColor(1, 1, 0)
+    if outros_usuarios_situacao[k] then -- Pinta de uma cor clara personagens vivos e de cor escura personagens mortos
+      love.graphics.setColor(1*fator_rgb, 1*fator_rgb, 0)
     else
-      love.graphics.setColor(0.4, 0.4, 0)
+      love.graphics.setColor(0.4*fator_rgb, 0.4*fator_rgb, 0)
     end
     love.graphics.print(k, v[1], v[2]-20)
     love.graphics.rectangle("fill", v[1], v[2], tamanhox, tamanhoy)
@@ -285,9 +298,8 @@ function love.draw()
   for _, v in pairs(disparos) do
     v.draw()
   end
-  love.graphics.setColor(1, 1, 1)
+  love.graphics.setColor(1*fator_rgb, 1*fator_rgb, 1*fator_rgb)
   love.graphics.print("Pontos: " .. pontos, 10, 10)
-  love.graphics.print("Ultima pontuação: " .. ultima_pontuacao, 10, 20)
 end
 
 function love.keypressed(key)
@@ -295,8 +307,10 @@ function love.keypressed(key)
 end
 
 function love.mousereleased(mouseX, mouseY)
-  quantidade_disparos = quantidade_disparos + 1
-  local posx, posy = personagem.obterPosicao()
-  local disparo = criarDisparo(usuario .. tostring(quantidade_disparos), posx, posy, mouseX, mouseY)
-  table.insert(disparos, disparo)
+  if personagem.verificarSituacao() then -- Se o personagem tiver vivo, cria uma instancia pro disparo e insere ela na lista de disparos para manutenção e exibição
+    quantidade_disparos = quantidade_disparos + 1
+    local posx, posy = personagem.obterPosicao()
+    local disparo = criarDisparo(usuario .. tostring(quantidade_disparos), posx+tamanhox/2, posy, mouseX, mouseY)
+    table.insert(disparos, disparo)
+  end
 end
