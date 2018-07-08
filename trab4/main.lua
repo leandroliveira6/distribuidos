@@ -127,11 +127,12 @@ local criarDisparo = function(id, x, y, mouseX, mouseY, vX, vY, corCustomizada, 
   local cor = corCustomizada
   local de_terceiros = false -- Disparos que não são da instancia corrente são tratados iguais
   local criador = atirador -- Para se atingir o personagem corrente o mesmo poder informar a quem atingiu
+  local bloqueado = true
   
   local validarMovimento = function(x, y)
     local width, height = love.graphics.getDimensions()
     -- Verifica se o objeto sairá da tela
-    if (x+diametro) < 0 or (x-diametro) > width or (y+diametro) < 0 or (y-tamanhoy) > height then
+    if (x+diametro*2) < 0 or (x-diametro*2) > width or (y+diametro*2) < 0 or (y-diametro*2) > height then
       return false
     end
     return true -- retorna verdadeiro se com o movimento o objeto não sai da tela
@@ -155,24 +156,30 @@ local criarDisparo = function(id, x, y, mouseX, mouseY, vX, vY, corCustomizada, 
     if not corCustomizada then
       cor = {0, 0.8*fator_rgb, 1*fator_rgb}
     end
-    if not de_terceiros then
+    if terceiros then
       de_terceiros = terceiros
+      bloqueado = false
     end
   end
   iniciar()
   
   return {
     update = function() -- Movimenta o disparo segundo as componentes da velocidade
-      local newx, newy = posx+velocidadeX, posy+velocidadeY
-      if validarMovimento(newx, newy) then
-        posx, posy = newx, newy
-      else
-        ativo = false
+      if not bloqueado then
+        local newx, newy = posx+velocidadeX, posy+velocidadeY
+        if validarMovimento(newx, newy) then
+          posx, posy = newx, newy
+        else
+          ativoa = false
+        end
       end
     end,
     draw = function()
       love.graphics.setColor(cor)
       love.graphics.circle("fill", posx, posy, diametro, diametro)
+      if bloqueado then
+        love.graphics.line(posx, posy, posx+velocidadeX*4, posy+velocidadeY*4)
+      end
     end,
     estaAtivo = function()
       return ativo
@@ -191,6 +198,9 @@ local criarDisparo = function(id, x, y, mouseX, mouseY, vX, vY, corCustomizada, 
     end,
     obterCriador = function()
       return criador
+    end,
+    desbloquear = function()
+      bloqueado = false
     end
   }
 end
@@ -202,7 +212,6 @@ end
 ]]
 local criarClienteMqtt = function()
   local clienteCreateCallback = function(topic, message)
-    controle = not controle
     local infos = {}
     for info in string.gmatch(message,"([^;]+)") do
         table.insert(infos, info)
@@ -227,6 +236,13 @@ local criarClienteMqtt = function()
         end
         if infos[4] == "morto" then
           outros_usuarios_situacao[infos[1]] = false -- false para morto
+        end
+      end
+    elseif topic == "trab4_actions" then
+      for i = #disparos,1,-1 do -- Itera sobre todos os disparos a fim de desbloquear o disparo efetuado
+        if disparos[i].obterIdentificador() == infos[2] then
+          disparos[i].desbloquear()
+          break
         end
       end
     end

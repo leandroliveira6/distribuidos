@@ -1,0 +1,13 @@
+1) O jogo desenvolvido, explicando seu objetivo e como jogá-lo.
+Implementei um jogo de sobrevivencia, onde enquanto o personagem sobreviver, poderá continuar jogando e pontuando cada vez mais. Varios outros usuarios podem se conectar no decorrer do jogo, tornando-se inimigo dos jogadores já online. 
+Disparos que acertam inimigos pontuam 1 ponto, recebendo 1 ponto extra caso esse inimigo morra. 
+Caso seu personagem morra, não será mais possivel jogar, ou seja, não será possivel se movimentar pela tela ou efetuar disparos, porem, você poderá assistir os demais jogadores jogando. Caso queira voltar a jogar, basta reiniciar a instancia do jogo.
+Para se movimentar, basta apertar as teclas a, s, d ou w. Para disparar, basta clicar um botão do mouse.
+Para abrir o jogo, é necessario informar o nome de usuario no argumento da chamada. Ex:
+> love trab4 lelele
+
+2) A estrutura utilizada, em especial os canais de comunicação definidos e as mensagens que transitam em cada um deles.
+Usei 3 topicos para mensagens distintas:
+a) "trab4_moviment" - Responsavel pela fila de posições dos personagens. Para cada movimento valido efetuado, é publicado nesse topico a posição, juntamente com o nome do usuario para que as outras instancias saibam quem atualizar. Tambem usei esse topico para testes de sobrecarga do MQTT.
+b) "trab4_actions" - Responsavel pelas ações dos personagens. A principio, imaginei varias coisas que poderiam ser adicionadas nessa fila, mas fiquei só com os disparos no final das contas. Para cada disparo efetuado no jogo, é enviado uma mensagem para esse topico. Essa mensagem contem o usuario que efetuou o disparo, a posição inicial e as componentes de velocidade (que determinam a direção) do disparo. Com essas informações, cada instancia do jogo poderá criar sua propria instancia do disparo, evitando sobrecarga no servidor. Isso só é valido devido ao movimento do disparo ser constante. Novo: Para fins de sincronia, o disparo de quem efetuou o disparo só começa a se movimentar quando ele recebe sua mensagem de disparo de volta, ou seja, ao mesmo tempo que todos os outros.
+c)  "trab4_finishedactions" - Responsavel pelos avisos de acertos. Toda vez que houver um acerto, o personagem atingido enviará uma mensagem para esse topico informando que ele foi atingido e se ele continua ou não vivo, alem de informar o dono do disparo para que o mesmo possa pontuar.

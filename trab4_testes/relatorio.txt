@@ -1,0 +1,3 @@
+3) Os testes de escalabilidade, descrevendo a plataforma utilizada, as medidas realizadas e os resultados obtidos. Para cada medida por favor explique por que a realizou.
+Utilizei LOVE para os testes. Consegui abrir 6 instancias até que elas passaram a levantar exceção, isso depois de atingir 80 mil mensagens em menos de 3 minutos. 
+Com apenas uma instancia, chegou a 50 mensagens/segundo. Com a segunda instancia, dobrou essa taxa. Porem, ao instanciar mais testes, o crescimento que parecia ser linear diminuiu. Ao final, antes das exceções, a sexta instancia aberta verificou aproximadamente 200 mensagens/segundo.
